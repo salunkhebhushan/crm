@@ -41,7 +41,7 @@ class Project extends BaseController
                     'project_no'=>$this->request->getPost('clientno'),
                     'cnt_id'=>$this->request->getPost('clientno'),
                     'owner_company_name'=>$this->request->getPost('companyname'),
-                     'project_title'=>$this->request->getPost('ownername'),
+                    'project_title'=>$this->request->getPost('ownername'),
                     'work_order_satus'=>$this->request->getPost('ownercellno'),
                     'starting_date'=>$this->request->getPost('owneremail'),
                     'complation_date'=>$this->request->getPost('con_per_name'),
@@ -55,7 +55,7 @@ class Project extends BaseController
                     'profit_loss'=>$this->request->getPost('company_address'),
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
-                
+
                 $cnt->insert($data);
 				//  print_r($data); 
 
@@ -74,16 +74,15 @@ class Project extends BaseController
     public function cnt_profile($id)
     {
 
-        $cnt = new ClientModel();
-        $cnt_id=$cnt->where('cnt_id',$id);
+                $pro=new ProjectModel();   		
+        $pro_id=$pro->where('pro_id',$id);
         //$emp_id=$emp->where('emp_id',$id);
         
-        $data['cnt_profile']=$cnt->find($cnt_id);
-        echo view('admin/client/cnt_profile',$data);
+        $data['pro_profile']=$pro->find($pro_id);
+        echo view('admin/project/pro_profile',$data);
     }
   //'picture'=>['required'=>'First Shop Name Required...'
 // 'exact_length[10]'=>'Mobile nimber must be a  digit.'
-    
 
     public function delete($id)
     {

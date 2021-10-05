@@ -33,13 +33,13 @@
                             <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Client No.</label>         
-                                 <input type="text"  name="clientno" id="clientno" class="form-control"  placeholder="Enter Client Number" value="<?= set_value('clientno', isset($row['cnt_no']) ? $row['cnt_no'] : ''); ?>"   >
+                                 <input type="text"  name="clientno" id="clientno" class="form-control" required placeholder="Enter Client Number" value="<?= set_value('clientno', isset($row['cnt_no']) ? $row['cnt_no'] : ''); ?>"   >
                                  <div class="text-danger"><?php if(isset($error['clientno'])) {echo $error['clientno']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Company Name</label>
-                                 <input type="text" name="companyname" id="companyname" class="form-control" placeholder="Enter Company Name" value="<?= set_value('companyname', isset($row['owner_company_name']) ? $row['owner_company_name'] : ''); ?>" >
+                                 <input type="text" name="companyname" id="companyname" class="form-control" required placeholder="Enter Company Name" value="<?= set_value('companyname', isset($row['owner_company_name']) ? $row['owner_company_name'] : ''); ?>" >
                                  <div class="text-danger"><?php if(isset($error['companyname'])) {echo $error['companyname']; } ?></div>
                               </div>
                            </div>

@@ -39,18 +39,18 @@
                               <!-- <div class="form-group col-sm-6">
                                  <label>Client No.</label>         
                                  <input type="text"  name="clientno" id="clientno" class="form-control"  placeholder="Enter Client Number" value="<?= set_value('clientno'); ?>"  >
-                                 <div class="text-danger"><?php if(isset($error['clientno'])) {echo $error['clientno']; } ?></div>
+                                 <div class="text-danger"><php if(isset($error['clientno'])) {echo $error['clientno']; } ?></div>
                               </div> -->
-                              <div class="form-group col-sm-6">
+                              <!-- <div class="form-group col-sm-6">
                                  <label>Workd Order Satus</label>
                                  <select class="form-control" name="clientno" >
-                                 <?php foreach($project as $row) : ?>
+                                 <php foreach($project as $row) : ?>
                                  
                                  <option>Complated</option>
-                                <?php endforeach; ?>
+                                <php endforeach; ?>
                                  
                                  </select>
-                              </div>
+                              </div> -->
                            </div>
                             
                            <div class="row">

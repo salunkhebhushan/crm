@@ -62,6 +62,17 @@ $routes->get('/Pro/delete/(:num)', 'Project::delete/$1');
 $routes->get('/Pro/edit/(:num)', 'Project::edit/$1');
 $routes->post('/Pro/update/(:num)', 'Project::update/$1');
 
+
+
+//Equipments 
+ 
+$routes->get('/', 'Equipment::index');
+$routes->get('/Te/te_form', 'Equipment::te_form');
+$routes->post('/Te/te_add','Equipment::te_add');
+$routes->get('/Te/delete/(:num)', 'Equipment::delete/$1');
+$routes->get('/Te/edit/(:num)', 'Equipment::edit/$1');
+$routes->post('/Te/update/(:num)', 'Equipment::update/$1');
+
 //$routes->get('/Employees/emp_profile/(:num)', 'Client::cnt_profile/$1');
 
 /*

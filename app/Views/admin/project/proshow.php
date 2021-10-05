@@ -3,7 +3,7 @@
 
 <!-- Main content -->
        <!-- Main content -->
-       <div class="content-wrapper">
+       <div class="con  tent-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                <div class="header-icon">
@@ -108,10 +108,10 @@
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row['project_title'] ?></td>
                             
-                          <!-- <td><a href="<=BASE; ?>Client/cnt_profile/<= $row['cnt_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a>
+                          <td><a href="<?=BASE; ?>Project/pro_profile/<?= $row['pro_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a>
                          
-                          <a href="<=BASE; ?>Client/edit/<= $row['cnt_id'] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                          <a href="<=BASE; ?>Client/delete/<= $row['cnt_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
+                          <a href="<?=BASE; ?>Project/edit/<?= $row['pro_id'] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                          <a href="<?=BASE; ?>Project/delete/<?= $row['pro_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
                         </td>
                         </tr>
                         <?php endforeach; ?>

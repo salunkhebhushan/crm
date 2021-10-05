@@ -149,45 +149,45 @@ class Client extends BaseController
     public function update($id='')
     {
         
-        $validation_msg=$this->validate([
-            'clientno'=>'required',
-            'companyname'=>'required',
-            // 'ownername'=>'required',
-            // 'ownercellno'=>'required|numeric|exact_length[10]',
-            // 'owneremail'=>'required|valid_email',
-            // 'con_per_name'=>'required',
-            // 'con_per_cellno'=>'required|numeric|exact_length[10]',
-            // 'con_per_email'=>'required|valid_email',
-            // 'officeno'=>'required|numeric|exact_length[10]',
-            // 'office_address'=>'required',
-            // 'office_email'=>'required|valid_email',
-            // 'vatno'=>'required',
-            // 'company_address'=>'required'
-        ],
-        [
-            'clientno'=>['required'=>'Client Number is Required...'],
-            'companyname'=>['required'=>'Company Name is required.'],
-            // 'ownername'=>['required'=>'Company Owner Name is  Required...'],
-            // 'ownercellno'=>['required'=>'Owner Cell Number is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Cell number must be a 10 digit.'],
-            // 'owneremail'=>['required'=>'Owner Email is Required...','valid_email'=>'owner email not contain a valid email address.'],
-            // 'con_per_name'=>['required'=>'Contact Person Name is required.'],
-            // 'con_per_cellno'=>['required'=>'Contact Person Cell Number is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Contact Person Cell number must be a 10 digit.'],
-            // 'con_per_email'=>['required'=>'Contact Person Email is Required...','valid_email'=>'Contact Person email not contain a valid email address.'],
-            // 'officeno'=>['required'=>'Office Number is required.','numeric'=>'Office Number must be numeric.','exact_length[10]'=>'Office Number must be a 10 digit.'],
-            // 'office_address'=>['required'=>'Office Address is required.'],
-            // 'office_email'=>['required'=>'Office Email is Required...','valid_email'=>'Office email not contain a valid email address.'],
-            // 'vatno'=>['required'=>'VAT NO is required.'],
-            // 'company_address'=>['required'=>'Company Address is required.'],
+        // $validation_msg=$this->validate([
+        //     'clientno'=>'required',
+        //     'companyname'=>'required',
+        //     // 'ownername'=>'required',
+        //     // 'ownercellno'=>'required|numeric|exact_length[10]',
+        //     // 'owneremail'=>'required|valid_email',
+        //     // 'con_per_name'=>'required',
+        //     // 'con_per_cellno'=>'required|numeric|exact_length[10]',
+        //     // 'con_per_email'=>'required|valid_email',
+        //     // 'officeno'=>'required|numeric|exact_length[10]',
+        //     // 'office_address'=>'required',
+        //     // 'office_email'=>'required|valid_email',
+        //     // 'vatno'=>'required',
+        //     // 'company_address'=>'required'
+        // ],
+        // [
+        //     'clientno'=>['required'=>'Client Number is Required...'],
+        //     'companyname'=>['required'=>'Company Name is required.'],
+        //     // 'ownername'=>['required'=>'Company Owner Name is  Required...'],
+        //     // 'ownercellno'=>['required'=>'Owner Cell Number is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Cell number must be a 10 digit.'],
+        //     // 'owneremail'=>['required'=>'Owner Email is Required...','valid_email'=>'owner email not contain a valid email address.'],
+        //     // 'con_per_name'=>['required'=>'Contact Person Name is required.'],
+        //     // 'con_per_cellno'=>['required'=>'Contact Person Cell Number is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Contact Person Cell number must be a 10 digit.'],
+        //     // 'con_per_email'=>['required'=>'Contact Person Email is Required...','valid_email'=>'Contact Person email not contain a valid email address.'],
+        //     // 'officeno'=>['required'=>'Office Number is required.','numeric'=>'Office Number must be numeric.','exact_length[10]'=>'Office Number must be a 10 digit.'],
+        //     // 'office_address'=>['required'=>'Office Address is required.'],
+        //     // 'office_email'=>['required'=>'Office Email is Required...','valid_email'=>'Office email not contain a valid email address.'],
+        //     // 'vatno'=>['required'=>'VAT NO is required.'],
+        //     // 'company_address'=>['required'=>'Company Address is required.'],
 
 
             
-        ]);
-        if(!$validation_msg)
-        {
-            $errors_msg['error']=$this->validation->getErrors();
-            return view('admin/client/cntedit',$errors_msg);
+        // ]);
+        // if(!$validation_msg)
+        // {
+        //     $errors_msg['error']=$this->validation->getErrors();
+        //     return view('admin/client/cntedit',$errors_msg);
 
-        }else {
+        // }else {
             
         $cnt=new ClientModel();   
         $cnt->find($id);   											     
@@ -210,7 +210,7 @@ class Client extends BaseController
         
         $cnt->update($id,$data); 
         //  print_r($data); 
-    }
+    
        
         //  print_r($data); 
             

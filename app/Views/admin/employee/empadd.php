@@ -1,6 +1,27 @@
 <?= $this->extend('admin_template') ?>
 <?= $this->section('content') ?>
 
+<style>
+   .quote-imgs-thumbs {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin: 1.5rem 0;
+  padding: 0.75rem;
+}
+.quote-imgs-thumbs--hidden {
+  display: none;
+}
+.img-preview-thumb {
+  background: #fff;
+  border: 1px solid #777;
+  border-radius: 0.25rem;
+  box-shadow: 0.125rem 0.125rem 0.0625rem rgba(0, 0, 0, 0.12);
+  margin-right: 1rem;
+  max-width: 140px;
+  padding: 0.25rem;
+}
+</style>
 <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -28,7 +49,7 @@
                         <h3><b>Employees Persnol Details</b></h3>
                        </div>
                         <div class="panel-body">
-                           <form action="<?=BASE; ?>Employee/emp_insert" method="POST"  enctype="multipart/form-data" class="col-sm-12">
+                           <form action="<?=BASE; ?>Employee/emp_insert" id="img-upload-form"  method="POST"  enctype="multipart/form-data" class="col-sm-12">
                               
                             <div class="row">
                               <div class="form-group col-sm-6">
@@ -517,39 +538,23 @@
                        <br>
                    
                               <div class="row">
-                               <div class="form-group col-sm-3">
-                                 <label>Passport</label>
+                               <div class="form-group col-sm-4">
+                                 <label>Employee Piture</label>
                                  <input type="file" name="passport_pic" value="<?= set_value('passport_pic'); ?>">
                                  <input type="hidden" name="old_picture">
-                             <div class="text-danger"><?php if(isset($error['passport_pic'])) {echo $error['passport_pic']; } ?></div>
-                            
-                             <div class="form-group col-sm-3">
+                             <div class="text-danger"><?php if(isset($error['passport_pic'])) {echo $error['passport_pic']; } ?></div> 
+                             
+                                 </div>
+
+                              <div class="row">
+                              <div class="form-group col-sm-6">
                                  <label>Multi img</label>
-                                 <input type="file" name="multiimg[]" multiple="" >
-                                 <input type="hidden" name="old_picture">
+                                 <input class="form-control" type="file" id="upload_imgs" name="upload_imgs[]" multiple/>
+                                 <div class="quote-imgs-thumbs quote-imgs-thumbs--hidden" id="img_preview" aria-live="polite"></div>
                               </div>
 
-                           </div>
-                              <!-- <div class="form-group col-sm-3">
-                                 <label>Emirate</label>
-                                 <input type="file" name="emirate_pic">
-                                 <input type="hidden" name="old_picture">
-                                 <div class="text-danger"><?php if(isset($error['idate'])) {echo $error['idate']; } ?></div>
                               </div>
-                              
-                              <div class="form-group col-sm-3">
-                                 <label>VISA</label>
-                                 <input type="file" name="visa_pic">
-                                 <input type="hidden" name="old_picture">
-                                 <div class="text-danger"><?php if(isset($error['idate'])) {echo $error['idate']; } ?></div>
-                              </div>
-                              <div class="form-group col-sm-3">
-                                 <label>Driving Licence</label>
-                                 <input type="file" name="licence_pic">
-                                 <input type="hidden" name="old_picture">
-                                 <div class="text-danger"><?php if(isset($error['idate'])) {echo $error['idate']; } ?></div>
-                              </div>
-                               -->
+                                                  
                            </div>
 
                         
@@ -560,30 +565,7 @@
                   </div>
                               </div> 
                            
-                              <!-- <div style="margin-left:";>
-                              <h3><b>Documents Uploads</b></h3>
-                              </div>
-                              <br>
-                              <br><br>
-                              </div>
-                   -->
-                                 <!-- <a href="#" class="btn btn-warning">Reset</a> -->
-                                 <!-- <button type="submit" id="submit" name="submit" class="btn btn-success">Save </button> -->
-                                 <!-- <a href="#" class="btn btn-success">Save</a> -->
-                              
-                              <!-- <div class="row">
-                               <div class="form-group col-sm-12">
-                                 <label>Picture upload</label>
-                                 <input type="file" name="picture">
-                                 <input type="hidden" name="old_picture">
-                               </div>   
-                               <br><br>
-                               <div class="reset-button">
-                                 <a href="#" class="btn btn-warning">Reset</a>
-                                 <a href="#" class="btn btn-success">Save</a>
-                               </div>
-                          </div>  -->
-                           
+                             
                           
                            </form>
                         </div>
@@ -593,5 +575,41 @@
             </section>
             <!-- /.content -->
          </div>
+
+         <script>
+            var imgUpload = document.getElementById('upload_imgs')
+  , imgPreview = document.getElementById('img_preview')
+  , imgUploadForm = document.getElementById('img-upload-form')
+  , totalFiles
+  , previewTitle
+  , previewTitleText
+  , img;
+
+imgUpload.addEventListener('change', previewImgs, false);
+imgUploadForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Images Uploaded! (not really, but it would if this was on your website)');
+}, false);
+
+function previewImgs(event) {
+  totalFiles = imgUpload.files.length;
+  
+  if(!!totalFiles) {
+    imgPreview.classList.remove('quote-imgs-thumbs--hidden');
+    previewTitle = document.createElement('p');
+    previewTitle.style.fontWeight = 'bold';
+    previewTitleText = document.createTextNode(totalFiles + ' Total Images Selected');
+    previewTitle.appendChild(previewTitleText);
+    imgPreview.appendChild(previewTitle);
+  }
+  
+  for(var i = 0; i < totalFiles; i++) {
+    img = document.createElement('img');
+    img.src = URL.createObjectURL(event.target.files[i]);
+    img.classList.add('img-preview-thumb');
+    imgPreview.appendChild(img);
+  }
+}
+         </script>
          
          <?= $this->endSection() ?>

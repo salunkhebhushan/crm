@@ -142,7 +142,7 @@ class Employee extends BaseController
                  
                 
 
-            //     $emp=new EmployeeModel();
+            
 
 
             //     $files=$this->request->getFiles();

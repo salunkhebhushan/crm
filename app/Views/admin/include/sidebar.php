@@ -51,6 +51,24 @@
                   </li>
                   <li class="treeview">
                      <a href="<?=BASE; ?>#">
+                     <i class="fa fa-shopping-basket"></i><span>Total & Equipmets</span>
+                     <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+                     </a>
+                     <ul class="treeview-menu">
+                        <li><a href="<?= BASE; ?>Equipment/te_form">Plant & Equipmets</a></li>
+                        <!-- <li><a href="<?=BASE; ?>hourly.html">Hourly</a></li> -->
+                        <!-- <li><a href="<?=BASE; ?>managesal.html">Manage salary</a></li>
+                        <li><a href="<?=BASE; ?>empsallist.html">Employee salary list</a></li>
+                        <li><a href="<?=BASE; ?>mpayment.html">Make payment</a></li>
+                        <li><a href="<?=BASE; ?>generatepay.html">Generate payslip</a></li>
+                        <li><a href="<?=BASE; ?>paysum.html">Payroll summary</a></li> -->
+                     </ul>
+                  </li>
+
+                  <li class="treeview">
+                     <a href="<?=BASE; ?>#">
                      <i class="fa fa-bell"></i><span>Attendance</span>
                      <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
