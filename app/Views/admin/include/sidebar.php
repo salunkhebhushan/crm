@@ -17,6 +17,7 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
+                     <li><a href="<?=BASE; ?>Empcategory1/category_form">Add Epmloyees Categoty </a></li>                        
                         <li><a href="<?= BASE; ?>Employee/emp_add">Add Employees</a></li>
                         <li><a href="<?=BASE; ?>Employee/emp_form">List</a></li>
                         <!-- <li><a href="<=BASE; ?>group.html">Groups</a></li> -->
@@ -46,12 +47,12 @@
                      </a>
                      <ul class="treeview-menu">
                         <li><a href="<?= BASE; ?>Project/pro_add">Add project</a></li>
-                        <li><a href="japp.html">Project Details</a></li>
+                        <li><a href="<?= BASE; ?>Project/pro_form">Project Details</a></li>
                      </ul>
                   </li>
                   <li class="treeview">
                      <a href="<?=BASE; ?>#">
-                     <i class="fa fa-shopping-basket"></i><span>Total & Equipmets</span>
+                     <i class="fa fa-shopping-basket"></i><span>Plant & Equipmets</span>
                      <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
@@ -64,6 +65,19 @@
                         <li><a href="<?=BASE; ?>mpayment.html">Make payment</a></li>
                         <li><a href="<?=BASE; ?>generatepay.html">Generate payslip</a></li>
                         <li><a href="<?=BASE; ?>paysum.html">Payroll summary</a></li> -->
+                     </ul>
+                  </li>
+
+                  <li class="treeview">
+                     <a href="#">
+                     <i class="fa fa-edit"></i><span>Sub Contactor</span>
+                     <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+                     </a>
+                     <ul class="treeview-menu">
+                        <li><a href="<?= BASE; ?>Subcontractor/sub_add">Add project</a></li>
+                        <li><a href="<?= BASE; ?>Subcontractor/sub_form">Project Details</a></li>
                      </ul>
                   </li>
 
@@ -135,7 +149,8 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="<?=BASE; ?>cpayment.html">Client payment</a></li>
+                     <li><a href="<?= BASE; ?>Revenue/rven_add">Add Revenue </a></li>   
+                     <li><a href="<?=BASE; ?>cpayment.html">Client payment</a></li>
                         <li><a href="<?=BASE; ?>emanage.html">Expense management</a></li>
                         <li><a href="<?=BASE; ?>ecategory.html">Expense Category</a></li>
                      </ul>

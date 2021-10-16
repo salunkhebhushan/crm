@@ -7,6 +7,9 @@
       <link rel="shortcut icon" href="<?=BASE; ?>assets/dist/img/ico/favicon.png" type="image/x-icon">
       <!-- Start Global Mandatory Style
          =====================================================================-->
+
+       
+      
       <!-- jquery-ui css -->
       <link href="<?=BASE; ?>assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
       <!-- Bootstrap -->
@@ -38,6 +41,13 @@
       <!-- Theme style -->
       <link href="<?=BASE; ?>assets/dist/css/stylecrm.css" rel="stylesheet" type="text/css"/>
       <!-- Theme style rtl -->
+
+      <!-- new   -->
+      <!---Select2 css-->
+      <link href="<?= BASE; ?>assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
       <!--<link href="<?=BASE; ?>assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
       <!-- End Theme Layout Style
          =====================================================================-->

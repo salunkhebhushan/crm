@@ -18,7 +18,7 @@ class ClientModel extends Model{
 
     protected $allowedFields=[
     'cnt_no',  
-    'owner_company_name',
+    'clint_company_name',
     'owner_name',
     'owner_cellno',
     'owner_email',
@@ -34,6 +34,19 @@ class ClientModel extends Model{
     'updated_by'
    ];
    
+
+/**get last id  */
+   function fetchLastIsertedID() 
+    {
+        
+          $builder = $this->db->table("client");
+          $builder->select('cnt_no');
+          $builder->orderBy('cnt_no', 'DESC');
+          $builder->limit(1);
+          $data = $builder->get()->getResult();
+        return $data;
+    }
+
 
 
 }

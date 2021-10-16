@@ -44,37 +44,34 @@ class Client extends BaseController
     {
 //      			validation 				updated_by	
                 $validation_msg=$this->validate([
-                    'clientno'=>'required',
                      'companyname'=>'required',
-                    // 'ownername'=>'required',
-                    // 'ownercellno'=>'required|numeric|exact_length[10]',
-                    // 'owneremail'=>'required|valid_email',
-                    // 'con_per_name'=>'required',
-                    // 'con_per_cellno'=>'required|numeric|exact_length[10]',
-                    // 'con_per_email'=>'required|valid_email',
-                    // 'officeno'=>'required|numeric|exact_length[10]',
-                    // 'office_address'=>'required',
-                    // 'office_email'=>'required|valid_email',
-                    // 'vatno'=>'required',
-                    // 'company_address'=>'required'
+                     'ownername'=>'required',
+                     'ownercellno'=>'required|numeric|exact_length[10]',
+                     'owneremail'=>'required|valid_email',
+                     'con_per_name'=>'required',
+                     'con_per_cellno'=>'required|numeric|exact_length[10]',
+                     'con_per_email'=>'required|valid_email',
+                     'officeno'=>'required|numeric|exact_length[10]',
+                    'office_address'=>'required',
+                     'office_email'=>'required|valid_email',
+                    'vatno'=>'required',
+                     'company_address'=>'required'
                 ],
                 [
-                    'clientno'=>['required'=>'Client Number Is Required...'],
+            
                      'companyname'=>['required'=>'Company Name Is Required.'],
-                    // 'ownername'=>['required'=>'Company Owner Name Is  Required...'],
-                    // 'ownercellno'=>['required'=>'Owner Cell Number Is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Cell number must be a 10 digit.'],
-                    // 'owneremail'=>['required'=>'Owner Email is Required...','valid_email'=>'owner email not contain a valid email address.'],
-                    // 'con_per_name'=>['required'=>'Contact Person Name Is Required.'],
-                    // 'con_per_cellno'=>['required'=>'Contact Person Cell Number Is Required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Contact Person Cell number must be a 10 digit.'],
-                    // 'con_per_email'=>['required'=>'Contact Person Email Is Required...','valid_email'=>'Contact Person email not contain a valid email address.'],
-                    // 'officeno'=>['required'=>'Office Number Is Required.','numeric'=>'Office Number must be numeric.','exact_length[10]'=>'Office Number must be a 10 digit.'],
-                    // 'office_address'=>['required'=>'Office Address Is required.'],
-                    // 'office_email'=>['required'=>'Office Email Is Required...','valid_email'=>'Office email not contain a valid email address.'],
-                    // 'vatno'=>['required'=>'VAT NO Is required.'],
-                    // 'company_address'=>['required'=>'Company Address Is Required.'],
+                     'ownername'=>['required'=>'Company Owner Name Is  Required...'],
+                     'ownercellno'=>['required'=>'Owner Cell Number Is required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Cell number must be a 10 digit.'],
+                     'owneremail'=>['required'=>'Owner Email is Required...','valid_email'=>'owner email not contain a valid email address.'],
+                     'con_per_name'=>['required'=>'Contact Person Name Is Required.'],
+                     'con_per_cellno'=>['required'=>'Contact Person Cell Number Is Required.','numeric'=>'Cell number must be numeric.','exact_length[10]'=>'Contact Person Cell number must be a 10 digit.'],
+                     'con_per_email'=>['required'=>'Contact Person Email Is Required...','valid_email'=>'Contact Person email not contain a valid email address.'],
+                     'officeno'=>['required'=>'Office Number Is Required.','numeric'=>'Office Number must be numeric.','exact_length[10]'=>'Office Number must be a 10 digit.'],
+                     'office_address'=>['required'=>'Office Address Is required.'],
+                    'office_email'=>['required'=>'Office Email Is Required...','valid_email'=>'Office email not contain a valid email address.'],
+                     'vatno'=>['required'=>'VAT NO Is required.'],
+                    'company_address'=>['required'=>'Company Address Is Required.'],
 
-
-                    
                 ]);
                 if(!$validation_msg)
                 {
@@ -83,10 +80,31 @@ class Client extends BaseController
 
                 }else {
                     
-                $cnt=new ClientModel();   											     
+                $cnt=new ClientModel();  
+                 /** this code clint autogenerated id in serial number
+                   * Authur : Bhushan G Salunkhe
+                  */
+                $data['lastID'] = $cnt->fetchLastIsertedID();
+                $arrLastid = array();
+                if(!empty($data['lastID']))
+                {  
+                    $j=0;
+         
+                 while($data['lastID'][0]->cnt_no > $j)
+                  {
+                    $j =  $data['lastID'][0]->cnt_no + 1 ;
+                    $arrLastid['cnt_no'] = $j ;
+                    $j++;
+                  }
+                }else
+                {  
+                 $j= 1;
+                  $arrLastid['cnt_no'] = $j ;
+                } 
+                  /** this code clint autogenerated id in serial number*/
                 $data=[
-                    'cnt_no'=>$this->request->getPost('clientno'),
-                    'owner_company_name'=>$this->request->getPost('companyname'),
+                    'cnt_no'=>$arrLastid['cnt_no'] ,
+                    'clint_company_name'=>$this->request->getPost('companyname'),
                      'owner_name'=>$this->request->getPost('ownername'),
                     'owner_cellno'=>$this->request->getPost('ownercellno'),
                     'owner_email'=>$this->request->getPost('owneremail'),
@@ -100,7 +118,6 @@ class Client extends BaseController
                     'company_address'=>$this->request->getPost('company_address'),
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
-                
                 $cnt->insert($data);
 				//  print_r($data); 
             }
@@ -193,7 +210,7 @@ class Client extends BaseController
         $cnt->find($id);   											     
         $data=[
             'cnt_no'=>$this->request->getPost('clientno'),
-            'owner_company_name'=>$this->request->getPost('companyname'),
+            'clint_company_name'=>$this->request->getPost('companyname'),
              'owner_name'=>$this->request->getPost('ownername'),
             'owner_cellno'=>$this->request->getPost('ownercellno'),
             'owner_email'=>$this->request->getPost('owneremail'),

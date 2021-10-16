@@ -104,7 +104,7 @@
                                  <?php foreach($emp as $row) : ?>
                         <tr>
                         <td><?= $row['cnt_no'] ?></td>
-                          <td><?= $row['owner_company_name'] ?></td>
+                          <td><?= $row['clint_company_name'] ?></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row['owner_name'] ?></td>
                           <td><?= $row['owner_cellno'] ?></td>

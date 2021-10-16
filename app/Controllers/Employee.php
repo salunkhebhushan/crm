@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\EmployeeModel;
+use App\Models\CategoryModel1;
 
 class Employee extends BaseController
 {
@@ -12,13 +13,12 @@ class Employee extends BaseController
 		header("Access-Control-Allow-Methods: *");
 		header("Access-Control-Allow-Headers: * ");
         $this->model = new EmployeeModel();
-        //$this->gmodel = new GeneralModel();
+        $this->model = new CategoryModel1();
+
 	}
 	function __construct(){
-        
-        // $session = \Config\Services::session($config);
-        // $session->start();              
-        helper(['url', 'form']);            
+        helper(['url', 'form']); 
+                   
      }
 
 	public function index()
@@ -37,91 +37,58 @@ class Employee extends BaseController
 	} 
 	
     public function emp_add()
-	{		
-		echo view('admin/employee/empadd');
+	{	
+        
+        $data = array();
+        $category = new CategoryModel1();
+
+        $data['categoryList']=$category->table("category")->findall();
+        // print_r($data);exit;
+               	
+		echo view('admin/employee/empadd',$data);
 	}
 
    
     public function emp_insert()
     {
-       	
+          
                 $validation_msg=$this->validate([
                         'firstname'=>'required',
                         'lastname'=>'required',
                         'employeeno'=>'required',
-                        // 'designation'=>'required',
-                        // 'email'=>'required|valid_email',
-                        // 'mobile'=>'required|numeric|exact_length[10]',
                         'project'=>'required',
-                        // 'doj'=>'required',
-                        // 'father'=>'required',
-                        // 'nationality'=>'required',
-                        // 'homeno'=>'required|numeric|exact_length[10]',
-                        // 'relative'=>'required',
-                        // 'relativeno'=>'required|numeric|exact_length[10]',
-                        // 'address'=>'required',
                         'salary'=>'required',
-                        // 'accommodation'=>'required',
-                        // 'transport'=>'required',
-                        // 'perday'=>'required',
-                        // 'food'=>'required',
-                        // 'total'=>'required',
                         'passportno'=>'required',
                         'idate'=>'required',
                         'edate'=>'required',
-                        // 'emirateid'=>'required',
-                        // 'e_idate'=>'required',
-                        // 'e_edate'=>'required',
                         'visano'=>'required',
                         'visaidate'=>'required',
                         'visaedate'=>'required',                              
-                        // 'driving'=>'required',
-                        // 'didate'=>'required',
-                        // 'dedate'=>'required',
-                       //'passport_pic'=>'uploaded[passport_pic]|mime_in[passport_pic, image/png, image/jpg, image/jpeg]|max_size[passport_pic,1024]',
 
                         ],
                         [ 
                             'firstname'=>['required'=>'First Name Is Required...'],
                             'lastname'=>['required'=>'Last Name Is Required...'],
                             'employeeno'=>['required'=>'Employeeno  Is Required .'],
-                            // 'designation'=>['required'=>'Designation Is Required.'],              
-                            // 'email'=>['required'=>'Employee Email Is Required...','valid_email'=>'Employee email not contain a valid email address.'],
-                            // 'mobile'=>['required'=>'Mobile Number Is Required.','numeric'=>'Mobile Number must be numeric.','exact_length[10]'=>'Mobile Number must be a 10 digit.'],
                             'project'=>['required'=>'Project Name Is Required...'],
-                            // 'doj'=>['required'=>'Date Of Joining Is Required...'],
-                            // 'father'=>['required'=>'Father Name Is Required...'],
-                            // 'nationality'=>['required'=>'Nationality Is Required...'],
-                            // 'homeno'=>['required'=>'Home Number Is Required.','numeric'=>'Home Number must be numeric.','exact_length[10]'=>'Home number must be a 10 digit.'],
-                            // 'relative'=>['required'=>'Relative Name Is  Required...'],
-                            // 'relativeno'=>['required'=>'Relative Number Is Required.','numeric'=>'Relative Number must be numeric.','exact_length[10]'=>'Relative Number must be a 10 digit.'],
-                            // 'address'=>['required'=>'Address Is Required...'],
                             'salary'=>['required'=>'Salary Is Required...'],
-                            // 'accommodation'=>['required'=>'Accommodation Is Required...'],
-                            // 'transport'=>['required'=>'Transport Is Required...'],
-                            // 'perday'=>['required'=>'Per Day Salary Is  Required...'],
-                            // 'food'=>['required'=>'food  Field Is Required...'],
-                            // 'total'=>['required'=>'total Field Is Required...'],
                             'passportno'=>['required'=>'Passport Number Is Required...'],
                             'idate'=>['required'=>' Issue Date Is Required...'],
                             'edate'=>['required'=>'Expire Date Is Required...'],
-                            // 'emirateid'=>['required'=>'Emirate Id Is Required...'],
-                            // 'e_idate'=>['required'=>'Issue Date Is Required...'],
-                            // 'e_edate'=>['required'=>'Expire Date Is Required...'],
                             'visano'=>['required'=>'Visa No Is Required...'],
                             'visaidate'=>['required'=>'Issue Date Is Required...'],
                             'visaedate'=>['required'=>'Expire Date Is Required...'],
-                            // 'driving'=>['required'=>'Driving Licence Is Required...'],
-                            // 'didate'=>['required'=>'Issue Date Is Required...'],
-                            // 'dedate'=>['required'=>'Expire Date Is Required...'],
-                            // 'passport_pic'=>['required'=>'passport_pic Date Required...']
                                  ]);
                 
-                                   
-                
+                           
+                              
+                              
                 if(!$validation_msg)
                 {
                     $errors_msg['error']=$this->validation->getErrors();
+                    $data = array();
+                   $category = new CategoryModel1();
+                    $errors_msg['categoryList']=$category->table("category")->findall();
                     return view('admin/employee/empadd',$errors_msg);
                     
                 }
@@ -141,39 +108,101 @@ class Employee extends BaseController
                 }										
                  
                 
-
+                if(isset($_POST["submit"]))
+                    {
+                        // echo "<pre>";public\uploads\1632733675_66245e48cf7a189763ed.png
+                        // print_r($_FILES["files"]); exit;
+			 	        foreach($_FILES["upload_imgs"]["name"] as $key=>$val){
+                             $rand=rand('11111111','99999999');
+                             $file1=$rand.'_'.$val;
+                        move_uploaded_file($_FILES["upload_imgs"]["tmp_name"][$key],"imguploads/".$file1);        
+                    }   
+                }
             
-
-
-            //     $files=$this->request->getFiles();
- 
-           
-            //  foreach($files('multiimg') as $img)
-            //  {
-            //     if ($img->isValid() && ! $img->hasMoved()) 
-			// 	{
-			// 	//	$imagename = $img->getRandomName();
-            //         if($img->move('uploads/'))
-            //         {
-            //             echo "<p>".$img->getName()."is moved  sucessfully</p>";
-            //         }
-            //         else
-            //         {
-            //                 echo "<p>".$img->getErrorString()."</p>";
-            //         }
+			// if(isset($_POST["submit"]))
+			// {
+			// 	$errors = array();
+			// 	$uploadedFiles = array();
+			// 	$extension = array("jpeg","jpg","png","gif");
+			// 	$bytes = 1024;
+			// 	$KB = 1024;
+			// 	$totalBytes = $bytes * $KB;
+			// 	 $UploadFolder ="UploadFolder";
+				
+			// 	$counter = 0;
+				
+			// 	foreach($_FILES["files"]["tmp_name"] as $key=>$tmp_name){
+			// 		$temp = $_FILES["files"]["tmp_name"][$key];
+			// 		$name = $_FILES["files"]["name"][$key];
+					
+			// 		if(empty($temp))
+			// 		{
+			// 			break;
+			// 		}
+					
+			// 		$counter++;
+			// 		$UploadOk = true;
+					
+			// 		if($_FILES["files"]["size"][$key] > $totalBytes)
+			// 		{
+			// 			$UploadOk = false;
+			// 			array_push($errors, $name." file size is larger than the 1 MB.");
+			// 		}
+					
+			// 		$ext = pathinfo($name, PATHINFO_EXTENSION);
+			// 		if(in_array($ext, $extension) == false){
+			// 			$UploadOk = false;
+			// 			array_push($errors, $name." is invalid file type.");
+			// 		}
+					
+			// 		if(file_exists($UploadFolder."/".$name) == true){
+			// 			$UploadOk = false;
+			// 			array_push($errors, $name." file is already exist.");
+			// 		}
+					
+			// 		if($UploadOk == true){
+            //             if (!file_exists(getcwd() . $UploadFolder)) {
+            //                 mkdir(getcwd() . $UploadFolder, 0777, true);
+            //             }
+            //             // print_r($temp); exit;
+			// 			// move_uploaded_file($temp,$UploadFolder);
+			// 		    move_uploaded_file($temp,$UploadFolder);
+                        
+            //             array_push($uploadedFiles, $name);
+			// 		}
 			// 	}
-            //  }      
-             
-        // if ($this->request->getFileMultiple('multiimg')) {
- 
-        //     foreach($this->request->getFileMultiple('multiimg') as $file)
-        //     {   
+                
+			// 	if($counter>0){
+			// 		if(count($errors)>0)
+			// 		{
+			// 			echo "<b>Errors:</b>";
+			// 			echo "<br/><ul>";
+			// 			foreach($errors as $error)
+			// 			{
+			// 				echo "<li>".$error."</li>";
+			// 			}
+			// 			echo "</ul><br/>";
+			// 		}
+					
+			// 		if(count($uploadedFiles)>0){
+			// 			echo "<b>Uploaded Files:</b>";
+			// 			echo "<br/><ul>";
+			// 			foreach($uploadedFiles as $fileName)
+			// 			{
+			// 				echo "<li>".$fileName."</li>";
+			// 			}
+			// 			echo "</ul><br/>";
+						
+			// 			echo count($uploadedFiles)." file(s) are successfully uploaded.";
+			// 		}								
+			// 	}
+			// 	else{
+			// 		echo "Please, Select file(s) to upload.";
+			// 	}
+			// }
 
-        //        $file->move(WRITEPATH . 'uploads');
-
-
-
-
+            //print_r($uploadedFiles);
+            
                 $data=['first_name'=>$this->request->getPost('firstname'),
                     'last_name'=>$this->request->getPost('lastname'),
                     'emp_no'=>$this->request->getPost('employeeno'),   
@@ -181,6 +210,7 @@ class Employee extends BaseController
                     'email'=>$this->request->getPost('email'),
                     'mobile'=>$this->request->getPost('mobile'),
                     'project'=>$this->request->getPost('project'),
+                    'category'=>$this->request->getPost('category'),
                     'doj'=>$this->request->getPost('doj'),   
                     'father_name'=>$this->request->getPost('father'),
                     'nationality'=>$this->request->getPost('nationality'),
@@ -208,14 +238,27 @@ class Employee extends BaseController
                     'didate'=>$this->request->getPost('didate'),
                     'dedate'=>$this->request->getPost('dedate'),
                     'passport_img'=>$imagename,
-                    // 'img_name' => $img->getClientName(),
-                    //  'img_type'  => $file->getClientMimeType(),
+                     'img_name' =>$file1, 
+                    //  'img_type'  =>$temp,
+
+                    //   'img_type'  =>$this->request->getPost('tmp_name'),
+                    //  'img_type'  => $file->getClientMimeType(),tmp_name
                     //'doc_upload'=>$this->request->getPost('picture'),
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
                 
                 $emp->insert($data);
 				//  print_r($data); 
+                /*$getLastInsertedId=new EmployeeModel();    
+                $data['getLastInsertedID'] = $getLastInsertedId->getlastinsetedid();
+                if (!empty($data['getLastInsertedID']))
+                 {
+                 
+               echo "<pre>";
+           //   echo $getLastInsertedId->insertID();
+                print_r(  $data['getLastInsertedID']);
+         
+                }*/
             }
 			  $session = session();
 			$this->session->setFlashdata('success','Employess Data insert succesfully');
@@ -234,14 +277,11 @@ class Employee extends BaseController
     {
 
         $emp = new EmployeeModel();
-        //$emp_id=$this->request->getPost('emp_id');
         //$emp_id=$emp->where('emp_id',$id);
         $emp_id=$emp->where('emp_id',$id);
         $data['emp_profile']=$emp->find($emp_id);
         echo view('admin/employee/emp_profile',$data);
     }
-  //'picture'=>['required'=>'First Shop Name Required...'
-// 'exact_length[10]'=>'Mobile nimber must be a  digit.'
     
 
     public function delete($id)
@@ -256,91 +296,14 @@ class Employee extends BaseController
     public function edit($id)
     {
         $emp = new EmployeeModel();
+        // $p['item']=$emp->product_update($id);
         $data['row']=$emp->where('emp_id',$id)->first();
+        $category = new CategoryModel1();
+        $data['categoryList']=$category->table("category")->findall();
         return view('admin/employee/empedit',$data);
     }
     public function update($id='')
     {
-        $validation_msg=$this->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'employeeno'=>'required',
-            // 'designation'=>'required',
-            // 'email'=>'required|valid_email',
-            // 'mobile'=>'required|numeric|exact_length[10]',
-            'project'=>'required',
-            // 'doj'=>'required',
-            // 'father'=>'required',
-            // 'nationality'=>'required',
-            // 'homeno'=>'required|numeric|exact_length[10]',
-            // 'relative'=>'required',
-            // 'relativeno'=>'required|numeric|exact_length[10]',
-            // 'address'=>'required',
-            'salary'=>'required',
-            // 'accommodation'=>'required',
-            // 'transport'=>'required',
-            // 'perday'=>'required',
-            // 'food'=>'required',
-            // 'total'=>'required',
-            'passportno'=>'required',
-            'idate'=>'required',
-            'edate'=>'required',
-            // 'emirateid'=>'required',
-            // 'e_idate'=>'required',
-            // 'e_edate'=>'required',
-            'visano'=>'required',
-            'visaidate'=>'required',
-            'visaedate'=>'required',                              
-            // 'driving'=>'required',
-            // 'didate'=>'required',
-            // 'dedate'=>'required',   
-       //    'passport_pic'=>'uploaded[passport_pic]|max_size[passport_pic,1024]',
-
-            ],
-            [ 
-                'firstname'=>['required'=>'First  Name Required...'],
-                'lastname'=>['required'=>'Last Name is required.'],
-                'employeeno'=>['required'=>'employeeno  is required .'],
-                // 'designation'=>['required'=>'designation is required.'],              
-                // 'email'=>['required'=>'employee Email is Required...','valid_email'=>'employee email not contain a valid email address.'],
-                // 'mobile'=>['required'=>'Mobile Number is required.','numeric'=>'Mobile number must be numeric.','exact_length[10]'=>'Mobile number must be a 10 digit.'],
-                'project'=>['required'=>'profile Shop Name Required...'],
-                // 'doj'=>['required'=>'doj Required...'],
-                // 'father'=>['required'=>'father Shop Name Required...'],
-                // 'nationality'=>['required'=>'nationality Required...'],
-                // 'homeno'=>['required'=>'Home Number is required.','numeric'=>'Home number must be numeric.','exact_length[10]'=>'Home number must be a 10 digit.'],
-                // 'relative'=>['required'=>'relative Name Required...'],
-                // 'relativeno'=>['required'=>'Relative Number is required.','numeric'=>'Relative number must be numeric.','exact_length[10]'=>'Relative number must be a 10 digit.'],
-                // 'address'=>['required'=>'address Required...'],
-                'salary'=>['required'=>'salary Name Required...'],
-                // 'accommodation'=>['required'=>'accommodation Required...'],
-                // 'transport'=>['required'=>'First Shop Name Required...'],
-                // 'perday'=>['required'=>'transport Name Required...'],
-                // 'food'=>['required'=>'food Required...'],
-                // 'total'=>['required'=>'total Name Required...'],
-                'passportno'=>['required'=>'passport Number Required...'],
-                'idate'=>['required'=>' Issue Date Required...'],
-                'edate'=>['required'=>'Expire Date Required...'],
-                // 'emirateid'=>['required'=>'Emirate Id Required...'],
-                // 'e_idate'=>['required'=>'Issue Date Required...'],
-                // 'e_edate'=>['required'=>'Expire Date Required...'],
-                'visano'=>['required'=>'Visa No Required...'],
-                'visaidate'=>['required'=>'Issue Date Required...'],
-                'visaedate'=>['required'=>'Expire Date Required...'],
-                // 'driving'=>['required'=>'Driving Licence Required...'],
-                // 'didate'=>['required'=>'Issue Date Required...'],
-                // 'dedate'=>['required'=>'Expire Date Required...'],
-                // 'passport_pic'=>['required'=>'passport_pic Date Required...']
-                     ]);
-    
-                       
-    
-    if(!$validation_msg)
-    {
-        $errors_msg['error']=$this->validation->getErrors();
-        return view('admin/employee/empadd',$errors_msg);
-        
-    }else {
         
     
                 $emp = new EmployeeModel();
@@ -363,9 +326,12 @@ class Employee extends BaseController
                     $imagename=$old_img_name;
                 }
 
-                
+
+
 				$emp->find($id);
-				$data=[
+
+
+                $data=[
                     'first_name'=>$this->request->getPost('firstname'),
                     'last_name'=>$this->request->getPost('lastname'),
                     'emp_no'=>$this->request->getPost('employeeno'),   
@@ -400,13 +366,15 @@ class Employee extends BaseController
                     'didate'=>$this->request->getPost('didate'),
                     'dedate'=>$this->request->getPost('dedate'),
                     'passport_img'=>$imagename,
-                    //'doc_upload'=>$this->request->getPost('picture'),
+                    // 'img_name' =>$file1, 
+
                     'updated_by'=>date('Y-m-d H:i:s'),
+
 
                 ];
                 $emp->update($id,$data);
                 
-            }
+            
 
 				$session = session();
 				$session->setFlashdata('success','Employees Data update succesfully');

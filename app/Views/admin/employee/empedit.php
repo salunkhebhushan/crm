@@ -33,13 +33,13 @@
                             <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>First Name</label>         
-                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname', isset($row['first_name']) ? $row['first_name'] : ''); ?>" >
+                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname', isset($row['first_name']) ? $row['first_name'] : ''); ?>" Required >
                                  <div class="text-danger"><?php if(isset($error['firstname'])) {echo $error['firstname']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Last Name</label>
-                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('firstname', isset($row['last_name']) ? $row['last_name'] : ''); ?>" >
+                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('firstname', isset($row['last_name']) ? $row['last_name'] : ''); ?>" Required >
                                  <div class="text-danger"><?php if(isset($error['lastname'])) {echo $error['lastname']; } ?></div>
                               </div>
                            </div>
@@ -72,8 +72,30 @@
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Project</label>
-                                 <input type="text" name="project" id="project" class="form-control" placeholder="Enter Project Name" value="<?= set_value('project', isset($row['project']) ? $row['project'] : ''); ?>">
+                                 <input type="text" name="project" id="project" class="form-control" placeholder="Enter Project Name" value="<?= set_value('project', isset($row['project']) ? $row['project'] : ''); ?>" Required>
                                  <div class="text-danger"><?php if(isset($error['project'])) {echo $error['project']; } ?></div>
+                              </div>
+
+                              <!-- <div class="form-group col-sm-6">
+                                 <label>Employee Category</label>
+                                 <select class="form-control" name="category" id="category" value="<?= set_value('category', isset($row['category']) ? $row['category'] : ''); ?>" >
+                                 <option value="Staff" >Staff</option>
+                                 <option value="Trademan">Trademan</option>
+                                 <option value="Helper">Helper</option>
+                                 </select>
+                                 < echo $cat['ctg_id']?> <php echo ($item[0]['category_name'] == $cat['ctg_id']) ? 'selected' : '' ?>
+                                 </select>
+                              </div> -->
+                              <div class="form-group col-sm-6">
+                                 <label>Employee Category</label>
+                                 <select class="form-control" name="category" id="category"  onchange="empcategoryFunction(this.value)"  >
+                                 <?php foreach($categoryList as $cat) : ?>
+                                 <option value="<?= set_value('category', isset($row['category']) ? $row['category'] : ''); ?>" ><?= $cat['category_name'] ?></option>
+                            
+                                  <?php endforeach; ?>     
+                                 </select>
+
+                                 
                               </div>
                             </div>
                               
@@ -380,7 +402,7 @@
                          <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Basic Salary</label>
-                                 <input type="text" name="salary" id="salary" class="form-control" placeholder="Enter Basic Salary" value="<?= set_value('salary', isset($row['basic_salary']) ? $row['basic_salary'] : ''); ?>" >
+                                 <input type="text" name="salary" id="salary" class="form-control" placeholder="Enter Basic Salary" value="<?= set_value('salary', isset($row['basic_salary']) ? $row['basic_salary'] : ''); ?>" Required >
                                  <div class="text-danger"><?php if(isset($error['salary'])) {echo $error['salary']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
@@ -398,7 +420,7 @@
                               </div>
 
                               <div class="form-group col-sm-6">
-                                 <label>Salary Per Day</label><br>
+                                 <label>Salary </label><br>
                                  <!-- <input type="text" id="perday"  name="perday"   class="form-control" placeholder="Enter Date..." value="<= set_value('perday'); ?>"> -->
                              <label  class="radio-inline"><input name="perday" value="Salary Per Day" checked="checked" type="radio" value="<?= set_value('perday', isset($row['salary_per_day']) ? $row['salary_per_day'] : ''); ?>">Salary Per Day</label>     
                                 <label class="radio-inline"><input name="perday" value="Salary Monthly" type="radio" value="<?= set_value('perday', isset($row['salary_per_day']) ? $row['salary_per_day'] : ''); ?>" >Salary Monthly</label> 
@@ -439,18 +461,18 @@
                               <div class="row">
                                <div class="form-group col-sm-4">
                                  <label>Passport No.</label>
-                                 <input type="text" name="passportno" id="passportno" class="form-control" placeholder="Enter Passport Number" value="<?= set_value('passportno', isset($row['passport_no']) ? $row['passport_no'] : ''); ?>" >
+                                 <input type="text" name="passportno" id="passportno" class="form-control" placeholder="Enter Passport Number" value="<?= set_value('passportno', isset($row['passport_no']) ? $row['passport_no'] : ''); ?>" Required >
                                  <div class="text-danger"><?php if(isset($error['passportno'])) {echo $error['passportno']; } ?></div>
                               </div>
                               <div class="form-group col-sm-4">
                                  <label>Issue Date</label>
-                                 <input type="date" name="idate" id="idate" class="form-control" placeholder="Enter Passport Issue Date.."  value="<?= set_value('idate', isset($row['pissue_date']) ? $row['pissue_date'] : ''); ?>">
+                                 <input type="date" name="idate" id="idate" class="form-control" placeholder="Enter Passport Issue Date.."  value="<?= set_value('idate', isset($row['pissue_date']) ? $row['pissue_date'] : ''); ?>" Required>
                                  <div class="text-danger"><?php if(isset($error['idate'])) {echo $error['idate']; } ?></div>
                               </div>
                               
                               <div class="form-group col-sm-4">
                                  <label>Expire Date</label>
-                                 <input type="date" name="edate" id="edate" class="form-control" placeholder="Enter Passport Expire Date.." value="<?= set_value('edate', isset($row['pexpire_date']) ? $row['pexpire_date'] : ''); ?>" >
+                                 <input type="date" name="edate" id="edate" class="form-control" placeholder="Enter Passport Expire Date.." value="<?= set_value('edate', isset($row['pexpire_date']) ? $row['pexpire_date'] : ''); ?>" Required >
                                  <div class="text-danger"><?php if(isset($error['edate'])) {echo $error['edate']; } ?></div>            
                               </div>
                            </div>
@@ -477,18 +499,18 @@
                            <div class="row">
                               <div class="form-group col-sm-4">
                                  <label>VISA AKAMA No.</label>
-                                 <input type="text" name="visano" id="visano" class="form-control" placeholder="Enter VISA AKAMA Number" value="<?= set_value('visano', isset($row['visa_no']) ? $row['visa_no'] : ''); ?>" >
+                                 <input type="text" name="visano" id="visano" class="form-control" placeholder="Enter VISA AKAMA Number" value="<?= set_value('visano', isset($row['visa_no']) ? $row['visa_no'] : ''); ?>" Required>
                                  <div class="text-danger"><?php if(isset($error['visano'])) {echo $error['visano']; } ?></div>
                               </div>
                               <div class="form-group col-sm-4">
                                  <label>Issue Date</label>
-                                 <input type="date" name="visaidate" id="visaidate" class="form-control" placeholder="Enter VISA AKAMA Issue Date.." value="<?= set_value('visaidate', isset($row['vissue_date']) ? $row['vissue_date'] : ''); ?>" >
+                                 <input type="date" name="visaidate" id="visaidate" class="form-control" placeholder="Enter VISA AKAMA Issue Date.." value="<?= set_value('visaidate', isset($row['vissue_date']) ? $row['vissue_date'] : ''); ?>" Required>
                                  <div class="text-danger"><?php if(isset($error['visaidate'])) {echo $error['visaidate']; } ?></div>
                               </div>
                               
                               <div class="form-group col-sm-4">
                                  <label>Expire Date</label>
-                                 <input type="date" name="visaedate" id="visaedate" class="form-control" placeholder="Enter VISA AKAMA Expire Date.."  value="<?= set_value('visaedate', isset($row['vexpire_date']) ? $row['vexpire_date'] : ''); ?>">
+                                 <input type="date" name="visaedate" id="visaedate" class="form-control" placeholder="Enter VISA AKAMA Expire Date.."  value="<?= set_value('visaedate', isset($row['vexpire_date']) ? $row['vexpire_date'] : ''); ?>" Required>
                                  <div class="text-danger"><?php if(isset($error['visaedate'])) {echo $error['visaedate']; } ?></div>
                               </div>
                            </div>
@@ -519,7 +541,7 @@
                    
                               <div class="row">
                                <div class="form-group col-sm-3">
-                                 <label>Passport</label>
+                                 <label>Profile Picture</label>
                                  <input type="file" name="passport_pic" value="<?= set_value('passport_pic'); ?>">
                                  <input type="hidden" name="old_picture">
                          
@@ -530,6 +552,20 @@
                           <img  src="<?=  "/uploads/"?><?= @$row['passport_img'] ?> " height="100px" width="100px" alt="image"> 
 
                                  <div class="text-danger"><?php if(isset($error['passport_pic'])) {echo $error['passport_pic']; } ?></div>
+                              </div>
+
+                              <div class="row">
+                               <div class="form-group col-sm-3">
+                                 <label>Document Picture</label>
+                                 <input class="form-control" type="file"  id="upload_imgs" name="upload_imgs[]" multiple="multiple" value="<?= set_value('upload_imgs'); ?>">
+                                 
+                                 <input type="hidden" name="old_picture">
+                         
+                              </div>
+                              <div class="form-group col-sm-3">
+                               
+                          <img  src="<?=  "/imguploads/"?><?= @$row['img_name'] ?> " height="100px" width="100px" alt="image"> 
+
                               </div>
                              
 <!--                              

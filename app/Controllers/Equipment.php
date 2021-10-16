@@ -69,16 +69,17 @@ class Equipment extends BaseController
         $data['pe']=$te->findall();
 		echo view('admin/equipment/teadd',$data);
 	}
-    public function cnt_profile($id)
-    {
+    
+    // public function cnt_profile($id)
+    // {
 
-        $cnt = new ClientModel();
-        $cnt_id=$cnt->where('cnt_id',$id);
-        //$emp_id=$emp->where('emp_id',$id);
+    //     $cnt = new ClientModel();
+    //     $cnt_id=$cnt->where('cnt_id',$id);
+    //     //$emp_id=$emp->where('emp_id',$id);
         
-        $data['cnt_profile']=$cnt->find($cnt_id);
-        echo view('admin/client/cnt_profile',$data);
-    }
+    //     $data['cnt_profile']=$cnt->find($cnt_id);
+    //     echo view('admin/client/cnt_profile',$data);
+    // }
 
 
     public function delete($id)
@@ -95,11 +96,14 @@ class Equipment extends BaseController
         $data['row']=$te->where('id',$id)->first();
         return view('admin/equipment/teadd',$data);
     }
-    public function update($id='')
+       
+    public function update()
     {
         
-            
-        $te=new EquipmentModel();   											        		
+        if(isset($_POST['update1']))
+        {
+        $te=new EquipmentModel();
+        $id=$te->where('id',$_POST['id'])->first();
         $te->find($id);   											     
         $data=[
             'pe_id'=>$this->request->getPost('peid'),
@@ -120,7 +124,7 @@ class Equipment extends BaseController
 				$session = session();
 				$session->setFlashdata('success','Equipment Data update succesfully');
                 return redirect('Te/te_form');
-                 
+        }          
     }
 
 

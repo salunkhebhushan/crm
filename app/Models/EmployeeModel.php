@@ -23,6 +23,7 @@ class EmployeeModel extends Model{
     'email',
     'mobile',
     'project',
+    'category',
     'doj',
     'father_name',
     'nationality',
@@ -56,6 +57,16 @@ class EmployeeModel extends Model{
     'updated_by'
    ];
    
-
+   public function getlastinsetedid()
+   {
+     $builder = $this->db->table("employees");
+     $builder->select('emp_id');
+     $data = $builder->get()->getResult();
+     echo $this->db->insertID();
+   //echo "<pre>";
+   //print_r($data);exit;
+   
+     return $data;
+   }
 
 }

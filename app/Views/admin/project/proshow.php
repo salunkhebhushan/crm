@@ -3,7 +3,7 @@
 
 <!-- Main content -->
        <!-- Main content -->
-       <div class="con  tent-wrapper">
+       <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                <div class="header-icon">
@@ -22,7 +22,7 @@
                         <div class="panel-heading">
                            <div class="btn-group" id="buttonexport">
                               <a href="#">
-                                 <h4> Project </h4>
+                                 <h4> project </h4>
                               </a>
                            </div>
                         </div>
@@ -30,7 +30,7 @@
                         <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
                            <div class="btn-group" style= >
                               <div class="buttonexport" id="buttonlist"> 
-                                 <a class="btn btn-add" href="<?= BASE; ?>Client/cnt_add"> <i class="fa fa-plus"></i> Add Client
+                                 <a class="btn btn-add" href="<?= BASE; ?>Project/pro_add"> <i class="fa fa-plus"></i> Add Project
                                  </a>  
                               </div>
                               <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
@@ -90,10 +90,13 @@
                            <div class="table-responsive w-100">
                               <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                  <thead>
-                                    <tr class="info">
-                                       <th>Client No </th>
+                                 <tr class="info">
+                                    <th> SR. No </th>
+                                       <th>project No </th>
                                        <th>Company Name</th>
                                        <th>Project Title</th>
+                                       <th>Works Order status</th>
+
                                        <!-- <th>Owner Cell No</th>
                                        <th>Owner Email</th>
                                         -->
@@ -103,15 +106,19 @@
                                  <tbody>
                                  <?php foreach($project as $row) : ?>
                         <tr>
-                        <td><?= $row['cnt_id'] ?></td>
-                          <td><?= $row['owner_company_name'] ?></td>
+                        <td><?= $row['pro_id'] ?></td>
+                        <td><?= $row['project_no'] ?></td>
+
+                          <td><?= $row['owner_company_name'] ?><a href="<?=BASE; ?>Project/pro_profile/<?= $row['pro_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row['project_title'] ?></td>
-                            
-                          <td><a href="<?=BASE; ?>Project/pro_profile/<?= $row['pro_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a>
-                         
+                          <td><?= $row['work_order_satus'] ?></td>
+ 
+                          
+                          <td>
+                     
                           <a href="<?=BASE; ?>Project/edit/<?= $row['pro_id'] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                          <a href="<?=BASE; ?>Project/delete/<?= $row['pro_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
+                          <a href="<?=BASE; ?>Project/delete/<?= $row['pro_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
                         </td>
                         </tr>
                         <?php endforeach; ?>

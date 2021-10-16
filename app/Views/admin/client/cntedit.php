@@ -32,40 +32,41 @@
                               
                             <div class="row">
                               <div class="form-group col-sm-6">
-                                 <label>Client No.</label>         
-                                 <input type="text"  name="clientno" id="clientno" class="form-control" required placeholder="Enter Client Number" value="<?= set_value('clientno', isset($row['cnt_no']) ? $row['cnt_no'] : ''); ?>"   >
+                                 <label>Client No.</label>   
+                                 <input type="hidden"  name="clientno" id="clientno" class="form-control" required placeholder="Enter Client Number" value="<?= set_value('clientno', isset($row['cnt_no']) ? $row['cnt_no'] : ''); ?>"   >      
+                                 <input type="text"   class="form-control" required placeholder="Enter Client Number" value="CA00<?= set_value('clientno', isset($row['cnt_no']) ? $row['cnt_no'] : ''); ?>"   readonly>
                                  <div class="text-danger"><?php if(isset($error['clientno'])) {echo $error['clientno']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Company Name</label>
-                                 <input type="text" name="companyname" id="companyname" class="form-control" required placeholder="Enter Company Name" value="<?= set_value('companyname', isset($row['owner_company_name']) ? $row['owner_company_name'] : ''); ?>" >
+                                 <input type="text" name="companyname" id="companyname" class="form-control" required placeholder="Enter Company Name" value="<?= set_value('companyname', isset($row['clint_company_name']) ? $row['clint_company_name'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['companyname'])) {echo $error['companyname']; } ?></div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Company Owner Name </label>
-                                 <input type="text" name="ownername" id="ownername"class="form-control" placeholder="Enter Company Owner Name " value="<?= set_value('ownername', isset($row['owner_name']) ? $row['owner_name'] : ''); ?>" >
+                                 <input type="text" name="ownername" id="ownername"class="form-control" placeholder="Enter Company Owner Name " value="<?= set_value('ownername', isset($row['owner_name']) ? $row['owner_name'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['ownername'])) {echo $error['ownername']; } ?></div>
 
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Owner Cell No.</label>
-                                 <input type="text" name="ownercellno" id="ownercellno"class="form-control" placeholder="Enter Owner Cell Number" value="<?= set_value('ownercellno', isset($row['owner_cellno']) ? $row['owner_cellno'] : ''); ?>"  >
+                                 <input type="text" name="ownercellno" id="ownercellno"class="form-control" placeholder="Enter Owner Cell Number" value="<?= set_value('ownercellno', isset($row['owner_cellno']) ? $row['owner_cellno'] : ''); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required>
                                  <div class="text-danger"><?php if(isset($error['ownercellno'])) {echo $error['ownercellno']; } ?></div>
                                 </div>
                               </div>
                               <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Owner Email</label>
-                                 <input type="email" name="owneremail" id="owneremail" class="form-control" placeholder="exp:abc12@gmail.com"  value="<?= set_value('owneremail', isset($row['owner_email']) ? $row['owner_email'] : ''); ?>" >
+                                 <input type="email" name="owneremail" id="owneremail" class="form-control" placeholder="exp:abc12@gmail.com"  value="<?= set_value('owneremail', isset($row['owner_email']) ? $row['owner_email'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['owneremail'])) {echo $error['owneremail']; } ?></div>
                             
                               </div>   
                               <div class="form-group col-sm-6">
                                  <label>Contact Person Name</label>
-                                 <input type="text"  name="con_per_name" id="con_per_name" class="form-control" placeholder="Enter Contact Person Name" value="<?= set_value('con_per_name', isset($row['contact_person_name']) ? $row['contact_person_name'] : ''); ?>" >
+                                 <input type="text"  name="con_per_name" id="con_per_name" class="form-control" placeholder="Enter Contact Person Name" value="<?= set_value('con_per_name', isset($row['contact_person_name']) ? $row['contact_person_name'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['con_per_name'])) {echo $error['con_per_name']; } ?></div>
                               </div>
                            </div>
@@ -73,12 +74,12 @@
                               
                            <div class="form-group col-sm-6">
                                  <label>Contact Person Cell No.</label>
-                                 <input type="text"  name="con_per_cellno" id="con_per_cellno" class="form-control" placeholder="Enter Contact person Cell Number"  value="<?= set_value('con_per_cellno', isset($row['contact_person_cellno']) ? $row['contact_person_cellno'] : ''); ?>">
+                                 <input type="text"  name="con_per_cellno" id="con_per_cellno" class="form-control" placeholder="Enter Contact person Cell Number"  value="<?= set_value('con_per_cellno', isset($row['contact_person_cellno']) ? $row['contact_person_cellno'] : ''); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                                  <div class="text-danger"><?php if(isset($error['con_per_cellno'])) {echo $error['con_per_cellno']; } ?></div>
                               </div>
                            <div class="form-group col-sm-6">
                                  <label>Contact Person Email</label>
-                                 <input type="email" name="con_per_email" id="con_per_email" class="form-control" placeholder="exp:abc12@gmail.com" value="<?= set_value('con_per_email', isset($row['contact_person_email']) ? $row['contact_person_email'] : ''); ?>">
+                                 <input type="email" name="con_per_email" id="con_per_email" class="form-control" placeholder="exp:abc12@gmail.com" value="<?= set_value('con_per_email', isset($row['contact_person_email']) ? $row['contact_person_email'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['con_per_email'])) {echo $error['con_per_email']; } ?></div>
                               </div>
                             </div>
@@ -86,12 +87,12 @@
                               <div class="row"> 
                               <div class="form-group col-sm-6">
                                  <label>Office No.</label>
-                                 <input type="" name="officeno" id="officeno" class="form-control" placeholder="Enter Office Number" value="<?= set_value('officeno', isset($row['office_no']) ? $row['office_no'] : ''); ?>" >
+                                 <input type="" name="officeno" id="officeno" class="form-control" placeholder="Enter Office Number" value="<?= set_value('officeno', isset($row['office_no']) ? $row['office_no'] : ''); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                                  <div class="text-danger"><?php if(isset($error['officeno'])) {echo $error['officeno']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Office Email</label>
-                                 <input type="email" name="office_email" id="office_email" class="form-control" placeholder="exp:abc12@gmail.com" value="<?= set_value('office_email', isset($row['office_email']) ? $row['office_email'] : ''); ?>" >
+                                 <input type="email" name="office_email" id="office_email" class="form-control" placeholder="exp:abc12@gmail.com" value="<?= set_value('office_email', isset($row['office_email']) ? $row['office_email'] : ''); ?>" required>
                                  <div class="text-danger"><?php if(isset($error['office_email'])) {echo $error['office_email']; } ?></div>
                               </div>
                               </div>
@@ -100,7 +101,7 @@
                            <div class="row">  
                            <div class="form-group col-sm-6">
                                  <label>VAT No.</label>
-                                 <input type="text" id="vatno"  name="vatno"  class="form-control" placeholder="Enter VAT Number" value="<?= set_value('vatno', isset($row['vatno']) ? $row['vatno'] : ''); ?>" >
+                                 <input type="text" id="vatno"  name="vatno"  class="form-control" placeholder="Enter VAT Number" value="<?= set_value('vatno', isset($row['vatno']) ? $row['vatno'] : ''); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                                  <div class="text-danger"><?php if(isset($error['vatno'])) {echo $error['vatno']; } ?></div>
                               </div>
                            <div class="form-group col-sm-6">

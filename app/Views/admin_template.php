@@ -49,6 +49,20 @@ $request = \Config\Services::request();
       <!-- Start Core Plugins
          =====================================================================-->
       <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+         <!-- <script>
+            var PATH = '<= url('') ?>';
+         </script> -->
+
+      <!-- Select2 js-->
+   
+      <!-- <script src="<?= BASE; ?>assets/plugins/select2/js/select2.min.js" type="text/javascript"></script> -->
+      <!-- C:\xampp\htdocs\crm\public\assets\plugins\select2\js\ -->
+      <!-- <script src="<?= BASE; ?>assets/plugins/select2/js/select2.full.min.js" type="text/javascript"></script> -->
+
+      
+      <!--end Select2 js-->
+
       <script src="<?=BASE; ?>assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
       <!-- jquery-ui --> 
       <script src="<?=BASE; ?>assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
@@ -72,6 +86,9 @@ $request = \Config\Services::request();
 
       <!-- sweet alert -->
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <!-- exra for j query -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+
     <script>
     <?php $session=session(); ?>
     $(document).ready(function (){

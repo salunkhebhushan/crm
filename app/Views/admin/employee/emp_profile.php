@@ -93,6 +93,11 @@
                               <div class="col-md-6">
                               <p class="card-text mb-3"><span class="text-primary">Project :</span> <?= $row['project'] ?></p>
                               </div>
+
+                              <div class="col-md-6">
+                              <p class="card-text mb-3"><span class="text-primary">Employee Category : </span><?= $row['category'] ?></p>
+                              </div>
+
                               <div class="col-md-6">
                               <p class="card-text mb-3"><span class="text-primary">Date of Joinig : </span><?= $row['doj'] ?></p>
                               </div>
@@ -241,10 +246,23 @@
                            
                            <div class="row">
                               <div class="col-md-3">
-                              <p class="card-text mb-3"><span class="text-primary">Passport Image <br> </span> 
-                          <img  src="<?= "/uploads/".$row['img_name'] ?>" multiple="" height="100px" width="100px" alt="image"> 
+                              <p class="card-text mb-3"><span class="text-primary">Multi Image <br> </span> 
+
+                                         <?php
+
+                                                // foreach($_FILES as $file){
+                                                // //echo $file['name']; 
+                                                // echo $file['tmp_name'].'</br>'; 
+                                                // move_uploaded_file($file['tmp_name'], "./imguploads/".$file["name"]);
+                                                // }
+
+                                                // ?>                                             
+                              <img  src="<?= "/imguploads/".$row['img_name'] ?>" multiple="" height="100px" width="100px" alt="image"> 
+
+
                            </p>
                               </div>
+                              
                               <!-- <div class="col-md-3">
                               <p class="card-text mb-3"><span class="text-primary">Emirate Image <br> </span> 
                           <img  src="<?= "/uploads/".$row['passport_img'] ?>" height="100px" width="100px" alt="image"> 
@@ -333,7 +351,8 @@
             <!-- /.content -->
          </div>
 
-
-
          <?php endforeach; ?>
+
+         
+         
             <?= $this->endSection() ?>

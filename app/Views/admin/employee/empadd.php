@@ -1,6 +1,7 @@
 <?= $this->extend('admin_template') ?>
 <?= $this->section('content') ?>
 
+<?= error_reporting(1) ?>
 <style>
    .quote-imgs-thumbs {
   background: #fff;
@@ -48,8 +49,9 @@
                         <div style="margin-left:25px";>
                         <h3><b>Employees Persnol Details</b></h3>
                        </div>
+                       <!--  id="uploadForm"-->
                         <div class="panel-body">
-                           <form action="<?=BASE; ?>Employee/emp_insert" id="img-upload-form"  method="POST"  enctype="multipart/form-data" class="col-sm-12">
+                           <form action="<?=BASE; ?>Employee/emp_insert"  id="img-upload-form" name="formUploadFile" method="POST"  enctype="multipart/form-data" class="col-sm-12">
                               
                             <div class="row">
                               <div class="form-group col-sm-6">
@@ -67,9 +69,8 @@
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Employees No.</label>
-                                 <input readonly name="employeeno" id="employeeno"class="form-control"  value="<?= mt_rand(100,1000); ?>" >
+                                 <input readonly name="employeeno" id="employeeno" class="form-control"   >
                                  <div class="text-danger"><?php if(isset($error['employeeno'])) {echo $error['employeeno']; } ?></div>
-
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Designation</label>
@@ -96,10 +97,23 @@
                                  <input type="text" name="project" id="project" class="form-control" placeholder="Enter Project Name" value="<?= set_value('project'); ?>">
                                  <div class="text-danger"><?php if(isset($error['project'])) {echo $error['project']; } ?></div>
                               </div>
+                              <div class="form-group col-sm-6">
+                                 <label>Employee Category</label>
+                                 <select class="form-control" name="category" id="category"  onchange="empcategoryFunction(this.value)"  >
+                                 <?php foreach($categoryList as $cat) { ?>
+                                 <option value="<?php echo @$cat['category_name'] ?>" ><?php echo @$cat['category_name'] ?></option>
+                            
+                                  <?php } ?>     
+                                 </select>
+
+                          
+                              </div>
+                           
                             </div>
+
                               
                               
-                              <div style="margin-left:";>
+                              <div>
                         <h3><b>Employees Profile</b></h3>
                        </div>
                        <br>
@@ -401,12 +415,12 @@
                          <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Basic Salary</label>
-                                 <input type="text" name="salary" id="salary" class="form-control" placeholder="Enter Basic Salary" value="<?= set_value('salary'); ?>" >
+                                 <input type="text" name="salary" id="txt1" class="form-control" onblur="calcular();" placeholder="Enter Basic Salary" value="<?= set_value('salary'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['salary'])) {echo $error['salary']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Accommodation</label>
-                                 <input type="text" name="accommodation" id="accommodation" class="form-control" placeholder="Enter Accommodation" value="<?= set_value('accommodation'); ?>" >
+                                 <input type="text" name="accommodation" id="txt2" class="form-control" onblur="calcular();" placeholder="Enter Accommodation" value="<?= set_value('accommodation'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['accommodation'])) {echo $error['accommodation']; } ?></div>
                               </div>
                            </div>
@@ -414,7 +428,7 @@
                           <div class="row">         
                               <div class="form-group col-sm-6">
                                  <label>Transport</label>
-                                 <input type="text" name="transport" id="transport"  class="form-control" placeholder="Enter Transport" value="<?= set_value('transport'); ?>" >
+                                 <input type="text" name="transport" id="txt3"  class="form-control" onblur="calcular();" placeholder="Enter Transport" value="<?= set_value('transport'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['transport'])) {echo $error['transport']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
@@ -429,13 +443,13 @@
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Food</label>
-                                 <input type="text" name="food" id="food"  class="form-control" placeholder="Enter Food" value="<?= set_value('food'); ?>">
+                                 <input type="text" name="food" id="txt4"  class="form-control" onblur="calcular();" placeholder="Enter Food" value="<?= set_value('food'); ?>">
                                  <div class="text-danger"><?php if(isset($error['food'])) {echo $error['food']; } ?></div>
                               </div >
                               
                               <div class="form-group col-sm-6">
                                  <label>Other Allowances</label>
-                                 <input type="text" name="allowances" id="allowances"  class="form-control" placeholder="Enter Other Allowances" value="<?= set_value('allowances'); ?>" >
+                                 <input type="text" name="allowances" id="txt5"  class="form-control" onblur="calcular();" placeholder="Enter Other Allowances" value="<?= set_value('allowances'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['allowances'])) {echo $error['allowances']; } ?></div>
                               </div>
                            </div>
@@ -443,15 +457,15 @@
                              
                            <div class="form-group col-sm-6">
                                  <label>Total</label>
-                                 <input type="text" name="total" id="total"  class="form-control" placeholder="Enter Total" value="<?= set_value('total'); ?>" >
-                                 <div class="text-danger"><?php if(isset($error['total'])) {echo $error['total']; } ?></div>
+                                 <input type="text" name="total" id="total"  class="form-control"   >
+                                 
                               </div>
-                              
+
                            </div>
 
 
 
-                     <div style="margin-left:";>
+                     <div>
                         <h3><b>Documents Details</b></h3>
                        </div>
                        <br>
@@ -532,29 +546,40 @@
                               </div>
                         </div>
 
-                        <div style="margin-left:";>
+                        <div>
                         <h3><b>Documents Uploads</b></h3>
                        </div>
                        <br>
                    
                               <div class="row">
                                <div class="form-group col-sm-4">
-                                 <label>Employee Piture</label>
+                                 <label>Employee Picture</label>
                                  <input type="file" name="passport_pic" value="<?= set_value('passport_pic'); ?>">
                                  <input type="hidden" name="old_picture">
                              <div class="text-danger"><?php if(isset($error['passport_pic'])) {echo $error['passport_pic']; } ?></div> 
                              
                                  </div>
 
-                              <div class="row">
+                              <!-- <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Multi img</label>
                                  <input class="form-control" type="file" id="upload_imgs" name="upload_imgs[]" multiple/>
                                  <div class="quote-imgs-thumbs quote-imgs-thumbs--hidden" id="img_preview" aria-live="polite"></div>
                               </div>
 
-                              </div>
-                                                  
+                              </div> -->
+                            
+                              <div class="row">
+                               <div class="form-group col-sm-6">
+                                 <label for="exampleInputFile">Document Picture To upload:</label>
+                                 <input class="form-control" type="file"  id="upload_imgs" name="upload_imgs[]" multiple="multiple">
+                                  <p class="help-block"><span class="label label-info">Note:</span>Passport Document,Visa Document,Emirate Id Document,Driving Document Attachment..</p> 
+                                 <div class="quote-imgs-thumbs quote-imgs-thumbs--hidden" id="img_preview" aria-live="polite"></div>
+                              
+                              </div> 
+                           </div>
+                           
+                           
                            </div>
 
                         
@@ -576,6 +601,45 @@
             <!-- /.content -->
          </div>
 
+
+
+<script>
+   function calcular() {
+    var num1 = Number(document.getElementById("txt1").value);
+    var num2 = Number(document.getElementById("txt2").value);
+    var num3 = Number(document.getElementById("txt3").value);
+    var num4 = Number(document.getElementById("txt4").value);
+    var num5 = Number(document.getElementById("txt5").value);
+
+   
+ document.getElementById('total').value  = num1 + num2 + num3 + num4 + num5;
+
+}
+</script>
+
+ <script type="text/javascript">
+   function empcategoryFunction(value)
+   {
+      if(value=="Staff")
+      {
+         document.getElementById("employeeno").value="1001";
+
+      }
+      if(value=="Trademan")
+      {
+         document.getElementById("employeeno").value="2002";
+
+      }
+      if(value=="Helper")
+      {
+         document.getElementById("employeeno").value="3001";
+
+      }
+
+   }
+ </script>
+
+
          <script>
             var imgUpload = document.getElementById('upload_imgs')
   , imgPreview = document.getElementById('img_preview')
@@ -586,7 +650,7 @@
   , img;
 
 imgUpload.addEventListener('change', previewImgs, false);
-imgUploadForm.addEventListener('submit', function (e) {
+imgUploadForm.addEventListener('submi', function (e) {
   e.preventDefault();
   alert('Images Uploaded! (not really, but it would if this was on your website)');
 }, false);
