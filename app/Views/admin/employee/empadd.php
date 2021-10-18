@@ -56,13 +56,13 @@
                             <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>First Name</label>         
-                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname'); ?>" >
+                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname'); ?>" onblur="validate()" >
                                  <div class="text-danger"><?php if(isset($error['firstname'])) {echo $error['firstname']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Last Name</label>
-                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('lastname'); ?>" >
+                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('lastname'); ?>" onblur="validate()" >
                                  <div class="text-danger"><?php if(isset($error['lastname'])) {echo $error['lastname']; } ?></div>
                               </div>
                            </div>
@@ -584,7 +584,7 @@
 
                         
                               <div class="form-group">
-                    <button type="submit" id="submit" name="submit" class="btn btn-success">
+                    <button type="submit" id="submit" name="submit" class="btn btn-success" disabled="disabled">
                     Save
                     </button> 
                   </div>
@@ -675,5 +675,46 @@ function previewImgs(event) {
   }
 }
          </script>
+
+
+<!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+function validate() {
+
+var valid = true;
+valid = checkEmpty($("#firstname"));
+valid = checkEmpty($("#lastname"));
+
+$("#submit").attr("disabled",true);
+
+if(valid) { 
+$("#submit").attr("disabled",false);
+} 
+}
+function checkEmpty(obj) {
+var name = $(obj).attr("name");
+$("."+name+"").html(""); 
+$(obj).css("border","");
+if($(obj).val() == "") {
+
+$("."+name+"").html("Required");
+return false;
+}
+
+return true; 
+}
+function checkEmail(obj) {
+var result = true;
+var name = $(obj).attr("name");
+$("."+name+"").html(""); 
+result = checkEmpty(obj);
+
+if(!result) {
+$("."+name+"").html("Required");
+return false;
+}
+return result; 
+}
+</script> -->
          
          <?= $this->endSection() ?>
