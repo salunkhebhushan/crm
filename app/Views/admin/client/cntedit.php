@@ -74,7 +74,7 @@
                               
                            <div class="form-group col-sm-6">
                                  <label>Contact Person Cell No.</label>
-                                 <input type="text"  name="con_per_cellno" id="con_per_cellno" class="form-control" placeholder="Enter Contact person Cell Number"  value="<?= set_value('con_per_cellno', isset($row['contact_person_cellno']) ? $row['contact_person_cellno'] : ''); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                                 <input type="text"  name="con_per_cellno" id="con_per_cellno" class="form-control" placeholder="Enter Contact person Cell Number"  value="<?= set_value('con_per_cellno', isset($row['contact_person_cellno']) ? $row['contact_person_cellno'] : ''); ?>">
                                  <div class="text-danger"><?php if(isset($error['con_per_cellno'])) {echo $error['con_per_cellno']; } ?></div>
                               </div>
                            <div class="form-group col-sm-6">

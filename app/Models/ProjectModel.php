@@ -54,8 +54,8 @@ class ProjectModel extends Model{
 public function ajaxGetSelectedClientDetails($id)
 {
   $builder = $this->db->table("client");
-  $builder->select('cnt_no,project_title,clint_company_name');
-  $builder->join('project', 'project.cnt_id = client.cnt_no');
+  $builder->select('cnt_no,clint_company_name');
+  //$builder->join('project', 'project.cnt_id = client.cnt_no');
   $builder->where("cnt_no = $id");
   $data = $builder->get()->getResult();
 
@@ -75,4 +75,62 @@ function fetchLastInsertedIDProject()
 }
 
 
+  public function getSubContractorDetails()
+{
+  $builder = $this->db->table("sub_contractor");
+  $builder->select('sub_no');
+  $data = $builder->get()->getResult();
+//echo "<pre>";
+//print_r($
+  return $data;
+}
+// activity project$build$builder
+
+public function projectDelete($id)
+{
+     $builder = $this->db->table("project_activities");
+     $builder->select('project_no,project_id');
+    $builder->join("project", "project_activities.project_id = project.project_no");
+    $builder->delete("project_id=$id");
+    // $builder->delete("project");
+  
+     $data = $builder->get()->getResult();
+    return $data;
+    
+}
+
+public function activity_record()
+{
+     $builder = $this->db->table("project_activities");
+     $builder->select('project_no,emp_no,project_id,m1');
+//   $builder->join("project", "project_activities.project_id = project.project_no");
+    // $builder->delete("project_id=$id");
+    // $builder->delete("project");
+  
+     $data = $builder->get()->getResult();
+    return $data;
+    
+}
+
+//  public function getProjectWiseAtv()
+// {
+//   $builder = $this->db->table("project_activities");
+//   $builder->select('sub_no');
+//   $data = $builder->get()->getResult();
+// //echo "<pre>";
+// //print_r($data);exit;
+//   return $data;
+// }
+// public function getProjectWiseAtv($id)
+// {
+//   $builder = $this->db->table("project");
+// //   $builder->select('owner.*, client.clint_company_name');
+//   $builder->join('project_activities', 'project.project_no = project_activities.project_id');
+//   $builder->where("project_id = $id");
+  
+// echo "<pre>";
+// print_r($data);exit;
+// $data = $builder->get()->getResult();
+//   return $data;
+// }
 }

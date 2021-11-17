@@ -1,6 +1,5 @@
 <?= $this->extend('admin_template') ?>
 <?= $this->section('content') ?>
-
 <?= error_reporting(1) ?>
 <style>
    .quote-imgs-thumbs {
@@ -42,7 +41,7 @@
                      <div class="panel panel-bd lobidrag">
                         <div class="panel-heading">
                            <div class="btn-group" id="buttonlist"> 
-                              <a class="btn btn-add " href="<?=BASE; ?>Employee/emp_form"> 
+                   <a class="btn btn-add " href="<?=BASE; ?>Employee/emp_form"> 
                               <i class="fa fa-list"></i>  Employees List </a>  
                            </div>
                         </div>
@@ -56,22 +55,31 @@
                             <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>First Name</label>         
-                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname'); ?>" onblur="validate()" >
+                                 <input type="text"  name="firstname" id="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['firstname'])) {echo $error['firstname']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Last Name</label>
-                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('lastname'); ?>" onblur="validate()" >
+                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Enter last Name" value="<?= set_value('lastname'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['lastname'])) {echo $error['lastname']; } ?></div>
                               </div>
                            </div>
                            <div class="row">
+                              
                               <div class="form-group col-sm-6">
-                                 <label>Employees No.</label>
-                                 <input readonly name="employeeno" id="employeeno" class="form-control"   >
-                                 <div class="text-danger"><?php if(isset($error['employeeno'])) {echo $error['employeeno']; } ?></div>
+                                 <label>Employee Category</label>
+                                 <select class="form-control" name="category" id="category"  >
+                                 <?php foreach($categoryList as $cat) { ?>
+                                 <option value="<?php echo @$cat['catergory_number'] ?>" ><?php echo @$cat['category_name'] ?></option>
+                            
+                                  <?php } ?>     
+                                 </select>
+
+                          
                               </div>
+                              
+                              
                               <div class="form-group col-sm-6">
                                  <label>Designation</label>
                                  <input type="text" name="designation" id="designation"class="form-control" placeholder="Enter designation" value="<?= set_value('designation'); ?>"   >
@@ -87,33 +95,23 @@
                               </div>   
                               <div class="form-group col-sm-6">
                                  <label>Mobile</label>
-                                 <input type="text"  name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile"  value="<?= set_value('mobile'); ?>">
+                                 <input type="text"  name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile"  value="<?= set_value('mobile'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class="text-danger"><?php if(isset($error['mobile'])) {echo $error['mobile']; } ?></div>
                               </div>
                            </div>
                            <div class="row">
-                              <div class="form-group col-sm-6">
-                                 <label>Project</label>
-                                 <input type="text" name="project" id="project" class="form-control" placeholder="Enter Project Name" value="<?= set_value('project'); ?>">
-                                 <div class="text-danger"><?php if(isset($error['project'])) {echo $error['project']; } ?></div>
-                              </div>
-                              <div class="form-group col-sm-6">
-                                 <label>Employee Category</label>
-                                 <select class="form-control" name="category" id="category"  onchange="empcategoryFunction(this.value)"  >
-                                 <?php foreach($categoryList as $cat) { ?>
-                                 <option value="<?php echo @$cat['category_name'] ?>" ><?php echo @$cat['category_name'] ?></option>
-                            
-                                  <?php } ?>     
-                                 </select>
-
-                          
-                              </div>
-                           
-                            </div>
+                              
+                              
+                           <!--<div class="form-group col-sm-6">-->
+                           <!--      <label>Employees No.</label>-->
+                           <!--      <input readonly name="employeeno" id="employeeno" class="form-control"   >-->
+                           <!--      <div class="text-danger"><php if(isset($error['employeeno'])) {echo $error['employeeno']; } ?></div>-->
+                           <!--   </div>-->
+                           <!-- </div>-->
 
                               
                               
-                              <div>
+                              <div style="margin-left:25px";>
                         <h3><b>Employees Profile</b></h3>
                        </div>
                        <br>
@@ -381,7 +379,7 @@
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Home No.</label>
-                                 <input id='date'  name="homeno"  type="homeno" class="form-control" placeholder="Enter Home Number" value="<?= set_value('homeno'); ?>">
+                                 <input id='date'  name="homeno"  type="homeno" class="form-control" placeholder="Enter Home Number" value="<?= set_value('homeno'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class="text-danger"><?php if(isset($error['homeno'])) {echo $error['homeno']; } ?></div>
                               </div>
                            </div>
@@ -394,7 +392,7 @@
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Relative Cell No.</label>
-                                 <input type="text" id="relativeno"  name="relativeno"  class="form-control" placeholder="Enter Relative Cell Number" value="<?= set_value('relativeno'); ?>">
+                                 <input type="text" id="relativeno"  name="relativeno"  class="form-control" placeholder="Enter Relative Cell Number" value="<?= set_value('relativeno'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                  <div class="text-danger"><?php if(isset($error['relativeno'])) {echo $error['relativeno']; } ?></div>
                               </div>
                            </div>
@@ -415,12 +413,12 @@
                          <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Basic Salary</label>
-                                 <input type="text" name="salary" id="txt1" class="form-control" onblur="calcular();" placeholder="Enter Basic Salary" value="<?= set_value('salary'); ?>" >
+                                 <input type="text" name="salary" id="txt1" class="form-control" onblur="calcular();" placeholder="Enter Basic Salary" value="<?= set_value('salary'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                  <div class="text-danger"><?php if(isset($error['salary'])) {echo $error['salary']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Accommodation</label>
-                                 <input type="text" name="accommodation" id="txt2" class="form-control" onblur="calcular();" placeholder="Enter Accommodation" value="<?= set_value('accommodation'); ?>" >
+                                 <input type="text" name="accommodation" id="txt2" class="form-control" onblur="calcular();" placeholder="Enter Accommodation" value="<?= set_value('accommodation'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class="text-danger"><?php if(isset($error['accommodation'])) {echo $error['accommodation']; } ?></div>
                               </div>
                            </div>
@@ -428,14 +426,15 @@
                           <div class="row">         
                               <div class="form-group col-sm-6">
                                  <label>Transport</label>
-                                 <input type="text" name="transport" id="txt3"  class="form-control" onblur="calcular();" placeholder="Enter Transport" value="<?= set_value('transport'); ?>" >
+                                 <input type="text" name="transport" id="txt3"  class="form-control" onblur="calcular();" placeholder="Enter Transport" value="<?= set_value('transport'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class="text-danger"><?php if(isset($error['transport'])) {echo $error['transport']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Salary </label><br>
                                  <!-- <input type="text" id="perday"  name="perday"   class="form-control" checked="checked" placeholder="Enter Date..." value="<= set_value('perday'); ?>"> -->
-                             <label  class="radio-inline"><input name="perday" value="Salary Per Day" checked="checked"  type="radio" value="<?= set_value('perday'); ?>">Salary Per Day</label>     
-                                <label class="radio-inline"><input name="perday" value="Salary Monthly" type="radio" value="<?= set_value('perday'); ?>">Salary Monthly</label> 
+                              <label class="radio-inline"><input name="perday" value="Salary Monthly" checked="checked" type="radio" value="<?= set_value('perday'); ?>">Salary Monthly</label> 
+                             <label  class="radio-inline"><input name="perday" value="Salary Per Day"   type="radio" value="<?= set_value('perday'); ?>">Salary Per Day</label>     
+                              
                                  <div class="text-danger"><?php if(isset($error['perday'])) {echo $error['perday']; } ?></div>
                               </div>
                            </div>
@@ -443,13 +442,13 @@
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Food</label>
-                                 <input type="text" name="food" id="txt4"  class="form-control" onblur="calcular();" placeholder="Enter Food" value="<?= set_value('food'); ?>">
+                                 <input type="text" name="food" id="txt4"  class="form-control" onblur="calcular();" placeholder="Enter Food" value="<?= set_value('food'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class="text-danger"><?php if(isset($error['food'])) {echo $error['food']; } ?></div>
                               </div >
                               
                               <div class="form-group col-sm-6">
                                  <label>Other Allowances</label>
-                                 <input type="text" name="allowances" id="txt5"  class="form-control" onblur="calcular();" placeholder="Enter Other Allowances" value="<?= set_value('allowances'); ?>" >
+                                 <input type="text" name="allowances" id="txt5"  class="form-control" onblur="calcular();" placeholder="Enter Other Allowances" value="<?= set_value('allowances'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                  <div class="text-danger"><?php if(isset($error['allowances'])) {echo $error['allowances']; } ?></div>
                               </div>
                            </div>
@@ -457,7 +456,7 @@
                              
                            <div class="form-group col-sm-6">
                                  <label>Total</label>
-                                 <input type="text" name="total" id="total"  class="form-control"   >
+                                 <input type="text" name="total" id="total"  class="form-control" readonly  >
                                  
                               </div>
 
@@ -465,43 +464,54 @@
 
 
 
-                     <div>
+                     <div style="margin-left:25px";>
                         <h3><b>Documents Details</b></h3>
                        </div>
                        <br>
                    
                               <div class="row">
-                               <div class="form-group col-sm-4">
+                               <div class="form-group col-sm-3">
                                  <label>Passport No.</label>
                                  <input type="text" name="passportno" id="passportno" class="form-control" placeholder="Enter Passport Number" value="<?= set_value('passportno'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['passportno'])) {echo $error['passportno']; } ?></div>
                               </div>
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
+                                 <label>Passport Upload.</label>
+                                 <input type="file" name="passpordDoc" value="<?= set_value('passpordDoc'); ?>" >
+                           
+                              </div>
+                              <div class="form-group col-sm-3">
                                  <label>Issue Date</label>
                                  <input type="date" name="idate" id="idate" class="form-control" placeholder="Enter Passport Issue Date.."  value="<?= set_value('idate'); ?>">
                                  <div class="text-danger"><?php if(isset($error['idate'])) {echo $error['idate']; } ?></div>
                               </div>
                               
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Expire Date</label>
                                  <input type="date" name="edate" id="edate" class="form-control" placeholder="Enter Passport Expire Date.." value="<?= set_value('edate'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['edate'])) {echo $error['edate']; } ?></div>            
                               </div>
                            </div>
+                           
 
                            <div class="row">
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Emirate ID No.</label>
                                  <input type="text" name="emirateid" id="emirateid" class="form-control" placeholder="Enter Emirate ID Number"  value="<?= set_value('emirateid'); ?>">
                                  <div class="text-danger"><?php if(isset($error['emirateid'])) {echo $error['emirateid']; } ?></div> 
                               </div>
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
+                                 <label>Emirate Upload.</label>
+                                 <input type="file" name="EmirateDoc" value="<?= set_value('EmirateDoc'); ?>">
+                               
+                              </div>
+                              <div class="form-group col-sm-3">
                                  <label>Issue Date</label>
                                  <input type="date" name="e_idate" id="e_idate" class="form-control" placeholder="Enter Emirate Issue Date.." value="<?= set_value('e_idate'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['e_idate'])) {echo $error['e_idate']; } ?></div>
                               </div>
                               
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Expire Date</label>
                                  <input type="date" name="e_edate" id="e_edate" class="form-control" placeholder="Enter Emirate Expire Date.." value="<?= set_value('e_edate'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['e_edate'])) {echo $error['e_edate']; } ?></div>
@@ -509,18 +519,23 @@
                            </div>
 
                            <div class="row">
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>VISA AKAMA No.</label>
                                  <input type="text" name="visano" id="visano" class="form-control" placeholder="Enter VISA AKAMA Number" value="<?= set_value('visano'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['visano'])) {echo $error['visano']; } ?></div>
                               </div>
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
+                                 <label>Visa Upload.</label>
+                                 <input type="file" name="VisaDoc" value="<?= set_value('VisaDoc'); ?>" >
+
+                              </div>
+                              <div class="form-group col-sm-3">
                                  <label>Issue Date</label>
                                  <input type="date" name="visaidate" id="visaidate" class="form-control" placeholder="Enter VISA AKAMA Issue Date.." value="<?= set_value('visaidate'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['visaidate'])) {echo $error['visaidate']; } ?></div>
                               </div>
                               
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Expire Date</label>
                                  <input type="date" name="visaedate" id="visaedate" class="form-control" placeholder="Enter VISA AKAMA Expire Date.."  value="<?= set_value('visaedate'); ?>">
                                  <div class="text-danger"><?php if(isset($error['visaedate'])) {echo $error['visaedate']; } ?></div>
@@ -528,25 +543,30 @@
                            </div>
 
                            <div class="row">
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Driving Licence No.</label>
                                  <input type="text" name="driving" id="driving" class="form-control" placeholder="Enter Driving Licence Number" value="<?= set_value('driving'); ?>">
                                  <div class="text-danger"><?php if(isset($error['driving'])) {echo $error['driving']; } ?></div>
                               </div>
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
+                                 <label>Driving  Upload.</label>
+                                 <input type="file" name="drivingDoc" value="<?= set_value('drivingDoc'); ?>" >
+
+                              </div>
+                              <div class="form-group col-sm-3">
                                  <label>Issue Date</label>
                                  <input type="date" name="didate" id="didate" class="form-control" placeholder="Enter  Driving Licence Issue Date.." value="<?= set_value('didate'); ?>" >
                                  <div class="text-danger"><?php if(isset($error['didate'])) {echo $error['didate']; } ?></div>
                               </div>
                               
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-3">
                                  <label>Expire Date</label>
                                  <input type="date" name="dedate" id="dedate" class="form-control" placeholder="Enter  Driving Licence Expire Date.."  value="<?= set_value('dedate'); ?>">
                                  <div class="text-danger"><?php if(isset($error['dedate'])) {echo $error['dedate']; } ?></div>
                               </div>
                         </div>
 
-                        <div>
+                        <div style="margin-left:25px";>
                         <h3><b>Documents Uploads</b></h3>
                        </div>
                        <br>
@@ -554,7 +574,7 @@
                               <div class="row">
                                <div class="form-group col-sm-4">
                                  <label>Employee Picture</label>
-                                 <input type="file" name="passport_pic" value="<?= set_value('passport_pic'); ?>">
+                                 <input type="file" name="passport_pic" value="<?= set_value('passport_pic'); ?>" required>
                                  <input type="hidden" name="old_picture">
                              <div class="text-danger"><?php if(isset($error['passport_pic'])) {echo $error['passport_pic']; } ?></div> 
                              
@@ -571,9 +591,9 @@
                             
                               <div class="row">
                                <div class="form-group col-sm-6">
-                                 <label for="exampleInputFile">Document Picture To upload:</label>
-                                 <input class="form-control" type="file"  id="upload_imgs" name="upload_imgs[]" multiple="multiple">
-                                  <p class="help-block"><span class="label label-info">Note:</span>Passport Document,Visa Document,Emirate Id Document,Driving Document Attachment..</p> 
+                                 <label for="exampleInputFile">Others Document Upload:</label>
+                                 <input  type="file"  id="upload_imgs" name="upload_imgs" >
+                                  <!--<p class="help-block"><span class="label label-info">Note:</span>Passport Document,Visa Document,Emirate Id Document,Driving Document Attachment..</p> -->
                                  <div class="quote-imgs-thumbs quote-imgs-thumbs--hidden" id="img_preview" aria-live="polite"></div>
                               
                               </div> 
@@ -584,7 +604,7 @@
 
                         
                               <div class="form-group">
-                    <button type="submit" id="submit" name="submit" class="btn btn-success" disabled="disabled">
+                    <button type="submit" id="submit" name="submit" class="btn btn-success">
                     Save
                     </button> 
                   </div>
@@ -617,27 +637,27 @@
 }
 </script>
 
- <script type="text/javascript">
-   function empcategoryFunction(value)
-   {
-      if(value=="Staff")
-      {
-         document.getElementById("employeeno").value="1001";
+ <!--<script type="text/javascript">-->
+ <!--  function empcategoryFunction(value)-->
+ <!--  {-->
+ <!--     if(value=="Staff")-->
+ <!--     {-->
+ <!--        document.getElementById("employeeno").value="1001";-->
 
-      }
-      if(value=="Trademan")
-      {
-         document.getElementById("employeeno").value="2002";
+ <!--     }-->
+ <!--     if(value=="Trademan")-->
+ <!--     {-->
+ <!--        document.getElementById("employeeno").value="2002";-->
 
-      }
-      if(value=="Helper")
-      {
-         document.getElementById("employeeno").value="3001";
+ <!--     }-->
+ <!--     if(value=="Helper")-->
+ <!--     {-->
+ <!--        document.getElementById("employeeno").value="3001";-->
 
-      }
+ <!--     }-->
 
-   }
- </script>
+ <!--  }-->
+ <!--</script>-->
 
 
          <script>
@@ -675,46 +695,5 @@ function previewImgs(event) {
   }
 }
          </script>
-
-
-<!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script>
-function validate() {
-
-var valid = true;
-valid = checkEmpty($("#firstname"));
-valid = checkEmpty($("#lastname"));
-
-$("#submit").attr("disabled",true);
-
-if(valid) { 
-$("#submit").attr("disabled",false);
-} 
-}
-function checkEmpty(obj) {
-var name = $(obj).attr("name");
-$("."+name+"").html(""); 
-$(obj).css("border","");
-if($(obj).val() == "") {
-
-$("."+name+"").html("Required");
-return false;
-}
-
-return true; 
-}
-function checkEmail(obj) {
-var result = true;
-var name = $(obj).attr("name");
-$("."+name+"").html(""); 
-result = checkEmpty(obj);
-
-if(!result) {
-$("."+name+"").html("Required");
-return false;
-}
-return result; 
-}
-</script> -->
          
          <?= $this->endSection() ?>

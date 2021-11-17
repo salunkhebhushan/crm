@@ -108,7 +108,7 @@ $request = \Config\Services::request();
       
       <?php if($session->get('error')) {?>
        swal({
-       title: "Great",
+       title: "wrong Password",
         text: "<?php echo $session->get('error'); ?>",
         icon: "error",
         timer:5000,
@@ -116,6 +116,21 @@ $request = \Config\Services::request();
              <?php } ?>
    });
     </script>   
+    
+    <script>
+        $(document).ready(function (){
+      
+      <?php if($session->get('warning')) {?>
+       swal({
+         title: "Date Already Exists",
+        text: "<?php echo $session->get('warning'); ?>",
+        icon: "warning",
+        timer:5000,
+      });
+             <?php } ?>
+   });
+    </script> 
+    
        <!-- end alert -->
 
       <script src="<?=BASE; ?>assets/plugins/chartJs/Chart.min.js" type="text/javascript"></script>

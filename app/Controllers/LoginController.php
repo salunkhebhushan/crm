@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 use App\Models\LoginModel;
-
-
+use App\Models\EmployeeModel;
+use App\Models\ClientModel;
+use App\Models\ProjectModel;
+use App\Models\SubcontractorModel;
 class LoginController extends BaseController
 {
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger){
@@ -32,12 +34,25 @@ class LoginController extends BaseController
        
         if($result != NULL)
         {
-            $this->session->setFlashdata('success','Admin Login Succesfully');
             $this->session->set('admin',$result['ad_name']);
-            return view('main_content');
+         //   $this->session->setFlashdata('success','Admin Login Succesfully');
+         
+         
+         //dasboard show
+          $emp = new EmployeeModel();
+		      $cnt = new ClientModel();
+		       $pro = new ProjectModel();
+		         $sub = new SubcontractorModel();
+           $data['activeEmp']=$emp->where('wrkstatus','active')->countAllResults();
+		    $data['allClient']=$cnt->table('client')->countAllResults();
+		    $data['allproject']=$pro->table('project')->countAllResults();
+		     $data['allsub_contractor']=$sub->table('sub_contractor')->countAllResults();
+            return view('main_content',$data);
+
         }
         else
         {
+            
             $this->session->setFlashdata('error','Login Failed ');
             return view('admin/login');
            // return redirect('home');

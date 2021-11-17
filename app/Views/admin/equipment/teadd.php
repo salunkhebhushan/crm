@@ -46,7 +46,7 @@
                               <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                  <thead>
                                     <tr class="info">
-                                      <th>ID</th>
+                                       <th>SR. No</th>
                                        <th>PE ID</th>
                                        <th>PE Type</th>
                                        <th>PE Model</th>
@@ -62,8 +62,8 @@
                                     
                              <?php foreach($pe as $row) : ?>
                          <tr>
-                         <td><?= @$row['id'] ?></td> 
-
+                        
+                        <td><?= @$row['id'] ?></td>
                         <td><?= @$row['pe_id'] ?></td>
                           <td><?= @$row['pe_type'] ?></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
@@ -107,22 +107,22 @@
                               <fieldset>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE ID</label>
-                                          <input type="text" name="peid" id="peid" placeholder="Enter PE ID" class="form-control" >
+                                          <input type="text" name="peid" id="peid" placeholder="Enter PE ID" class="form-control" required >
                                       
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE Type</label>
-                                          <input type="text" name="petype" id="petype" placeholder="Enter PE Type" class="form-control" >
+                                          <input type="text" name="petype" id="petype" placeholder="Enter PE Type" class="form-control" required >
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE Model</label>
-                                          <input type="text" name="pemodel" id="pemodel" placeholder="Enter PE Model" class="form-control" >
+                                          <input type="text" name="pemodel" id="pemodel" placeholder="Enter PE Model" class="form-control" required >
                                        </div>
 
                                        <div class="col-md-6 form-group">
                                        <label class="control-label">Status</label>
-                                        <select class="form-control" name="status"   >
+                                        <select class="form-control" name="s"   id="s">
                                             <option value="Working">Working</option>
                                             <option value="Break Down">Break Down</option>
                                             <option value="Expired">Expired</option>
@@ -132,7 +132,7 @@
 
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Per Day Charges</label>
-                                          <input type="text" name="charge" id="charge" placeholder="Enter Per Day Charges" class="form-control" >
+                                          <input type="text" name="charge" id="charge" placeholder="Enter Per Day Charges" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                        </div>
                           
                                        <div class="col-md-6 form-group">
@@ -147,7 +147,6 @@
 
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
                                              <button type="submit" name="update1" class="btn btn-add btn-sm">Update</button>
                                           </div>
                                        </div>
@@ -181,21 +180,27 @@
                                     <fieldset>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE ID</label>
-                                          <input type="text" name="peid" id="peid" placeholder="Enter PE ID" class="form-control">
+                                          <input type="text" name="peid" id="peid" placeholder="Enter PE ID" class="form-control" value="<?= set_value('peid'); ?>" required>
+                                 <div class="text-danger"><?php if(isset($error['peid'])) {echo $error['peid']; } ?></div>
+
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE Type</label>
-                                          <input type="text" name="petype" id="petype" placeholder="Enter PE Type" class="form-control">
+                                          <input type="text" name="petype" id="petype" placeholder="Enter PE Type" class="form-control" value="<?= set_value('petype'); ?>" required >
+                                          <div class="text-danger"><?php if(isset($error['petype'])) {echo $error['petype']; } ?></div>
+                                 
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">PE Model</label>
-                                          <input type="text" name="pemodel" id="pemodel" placeholder="Enter PE Model" class="form-control">
+                                          <input type="text" name="pemodel" id="pemodel" placeholder="Enter PE Model" class="form-control" value="<?= set_value('pemodel'); ?>" required >
+                                          <div class="text-danger"><?php if(isset($error['pemodel'])) {echo $error['pemodel']; } ?></div>
+                                
                                        </div>
 
                                        <div class="col-md-6 form-group">
                                        <label class="control-label">Status</label>
-                                        <select class="form-control" name="status" >
+                                        <select class="form-control" name="s" id="s" >
                                             <option>Working</option>
                                             <option>Break Down</option>
                                             <option>Expired</option>
@@ -205,7 +210,7 @@
 
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Per Day Charges</label>
-                                          <input type="text" name="charge" id="charge" placeholder="Enter Per Day Charges" class="form-control">
+                                          <input type="text" name="charge" id="charge" placeholder="Enter Per Day Charges" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                        </div>
                           
                                        <div class="col-md-6 form-group">
@@ -220,7 +225,6 @@
 
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
                                              <button type="submit" class="btn btn-add btn-sm">Submit</button>
                                           </div>
                                        </div>
@@ -299,7 +303,7 @@
                      $("#peid").val(data[1]);
                      $("#petype").val(data[2]);
                      $("#pemodel").val(data[3]);
-                     $("#status").val(data[4]);
+                     $("#s").val(data[4]);
                      $("#charge").val(data[5]);
                      $("#maintinace").val(data[6]);
                      $("#expiry").val(data[7]);

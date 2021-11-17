@@ -103,14 +103,14 @@
                                  <tbody>
                                  <?php foreach($emp as $row) : ?>
                         <tr>
-                        <td><?= $row['cnt_no'] ?></td>
-                          <td><?= $row['clint_company_name'] ?></td>
+                        <td><?= "CA00".$row['cnt_no'] ?></td>
+                          <td><a href="<?=BASE; ?>Client/cnt_profile/<?= $row['cnt_id'] ?>" class="btn btn-"><?= $row['clint_company_name'] ?></a></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row['owner_name'] ?></td>
                           <td><?= $row['owner_cellno'] ?></td>
                           <td><?= $row['owner_email'] ?></td>
                             
-                          <td><a href="<?=BASE; ?>Client/cnt_profile/<?= $row['cnt_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a>
+                          <td>
                          
                           <a href="<?=BASE; ?>Client/edit/<?= $row['cnt_id'] ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
                           <a href="<?=BASE; ?>Client/delete/<?= $row['cnt_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>

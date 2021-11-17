@@ -18,9 +18,13 @@
                      <div class="card">
                         <div class="card-header">
                            <div class="card-header">
-
-                          <img  src="<?= "/uploads/".$row['passport_img'] ?>" height="100px" style="border-radius:50px" width="100px" alt="image"> 
-
+                          <?php  if($row['passport_img'] != ''){ ?>
+                          <a  href="<?=  "/uploads/"?><?= @$row['passport_img'] ?>" data-lightbox="example-3" data-title="Caption" target = "_blank">
+                          <img  src="<?=  "/uploads/"?><?= @$row['passport_img'] ?> " height="100px" style="border-radius:50px" width="100px" alt="image"> 
+                          </a>
+                            <?php }else{ ?>   
+                             <img  src="/thumbnil/avatar.png" style="border-radius:50px" width="100px" alt="image"> 
+                             <?php }?>
                            </div>
                            
                         </div>
@@ -34,9 +38,9 @@
                            <div class="card-body text-center">
                            <b><?= $row['first_name'] ?>  <?= $row['last_name'] ?></b>
                           
-                           <p class="card-text mb-3"><span class="text-primary"></span> <?= $row['email'] ?> </p>
+                           <p class="card-text mb-3"><span class="text-primary"></span> <?= $row['designation'] ?> </p>
 
-                              <p class="card-text mb-3"><span class="text-primary">Emoloyee No :</span><b> <?= $row['emp_no'] ?>   </b></p>
+                              <p class="card-text mb-3"><span class="text-primary">Employee No :</span><b> <?= $row['emp_no'] ?>   </b></p>
                               
                              
                               <!-- <a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm" data-toggle="modal" data-target="#add_basicInformation"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -87,12 +91,12 @@
                               <p class="card-text mb-3"><span class="text-primary">Mobile No :</span> <?= $row['mobile'] ?></p>
                               </div>
                               <div class="col-md-6">
-                              <p class="card-text mb-3"><span class="text-primary">Designation : </span><?= $row['designation'] ?></p>
+                              <p class="card-text mb-3"><span class="text-primary">Email Id : </span><?= $row['email'] ?></p>
                               </div>
 
-                              <div class="col-md-6">
-                              <p class="card-text mb-3"><span class="text-primary">Project :</span> <?= $row['project'] ?></p>
-                              </div>
+                              <!--<div class="col-md-6">-->
+                              <!--<p class="card-text mb-3"><span class="text-primary">Project :</span> <= $row['project'] ?></p>-->
+                              <!--</div>-->
 
                               <div class="col-md-6">
                               <p class="card-text mb-3"><span class="text-primary">Employee Category : </span><?= $row['category'] ?></p>
@@ -147,7 +151,7 @@
                         </div>
 
                         <div class="card-content-member text-center">
-                           <h4 style="">Salary Details</h4>
+                           <h4 >Salary Details</h4>
                               <p class="m-t-0"></p>
                            </div>
 
@@ -187,7 +191,7 @@
 
 
                      <div class="card-content-member text-center">
-                           <h4 style="">Documents Details</h4>
+                           <h4 >Documents Details</h4>
                               <p class="m-t-0"></p>
                            </div>
 
@@ -238,50 +242,56 @@
                      </div>
                      
                      <div class="card-content-member text-center">
-                           <h4 style="">Documents Uploads</h4>
+                           <h4>Documents Uploads</h4>
                               <p class="m-t-0"></p>
                            </div>
 
                            <div class="card-content-languages">
                            
                            <div class="row">
-                              <div class="col-md-3">
+                              <div class="col-md-12">
                               <p class="card-text mb-3"><span class="text-primary">Multi Image <br> </span> 
-
-                                         <?php
-
-                                                // foreach($_FILES as $file){
-                                                // //echo $file['name']; 
-                                                // echo $file['tmp_name'].'</br>'; 
-                                                // move_uploaded_file($file['tmp_name'], "./imguploads/".$file["name"]);
-                                                // }
-
-                                                // ?>                                             
-                              <img  src="<?= "/imguploads/".$row['img_name'] ?>" multiple="" height="100px" width="100px" alt="image"> 
-
+                                 <?php if($emp_profile[0]['passport_doc'] != ''|| $emp_profile[0]['emirate_doc'] != '' || $emp_profile[0]['visa_doc'] != ''|| $emp_profile[0]['driving_doc'] != ''){  ?>
+                               <?php foreach($multImg as $loadImg){?>
+                                 <?php $extension = pathinfo($loadImg, PATHINFO_EXTENSION); 
+                                    if($extension == 'pdf'){?>
+                                       <a class="demo" href="<?="/document_img/"?><?= @$loadImg ?>" data-lightbox="example-3" data-title="Caption" target = "_blank">
+                          <img src="/thumbnil/pdf-icon.png" height="90" width="70"> 
+                           </a>
+                                    <?php }else{?>   
+                                <a data-toggle="tooltip" title="<?= @$row['first_name'].'_'.$loadImg ?>" class="demo" href="<?="/document_img/"?><?= @$loadImg ?>" data-lightbox="example-3" data-title="Caption" target = "_blank">
+                          <img src="<?="/document_img/"?><?= @$loadImg ?>" height="100px" width="100px" alt="image" class ="example-image"> 
+                        
+                        </a>
+                                <?php }}}else{ ?>
+                           <img  src="/thumbnil/thumbnil.png" height="100px" width="100px" alt="image"> 
+                            <?php }?>
 
                            </p>
                               </div>
-                              
-                              <!-- <div class="col-md-3">
-                              <p class="card-text mb-3"><span class="text-primary">Emirate Image <br> </span> 
-                          <img  src="<?= "/uploads/".$row['passport_img'] ?>" height="100px" width="100px" alt="image"> 
-                           </p>
-                              </div>
-                              <div class="col-md-3">
-                              <p class="card-text mb-3"><span class="text-primary">VISA Image <br> </span> 
-                          <img  src="<?= "/uploads/".$row['passport_img'] ?>" height="100px" width="100px" alt="image"> 
-                           </p>
-                              </div>
-                              <div class="col-md-3">
-                              <p class="card-text mb-3"><span class="text-primary">Licence Image <br> </span> 
-                          <img  src="<?= "/uploads/".$row['passport_img'] ?>" height="100px" width="100px" alt="image"> 
-                           </p>
-                              </div> -->
-                             
-                             
                         </div>
                      </div>
+                     
+                     
+                     
+                           <!--<div class="card-content-languages">
+                           <div class="row">
+                              <div class="col-md-12">
+                     <div class="col-sm-3 col-md-2 icon_box_width">
+                                 <div class="icon_box">
+                                    <i class="hvr-buzz-out fa fa-cloud-download"></i>
+                                     <?php foreach($multImg as $loadImg){  ?>
+                                    <span class="icon-name"><a href="<?=  "/imguploads/"?><?= @$loadImg ?>" download>Download</a></span>
+                                    <?php }?>
+                                 </div>
+                              </div>-->
+
+                         
+                              </div>
+                        </div>
+                     </div>
+                   
+                     
                         <div class="card-footer">
                           
                      </div>
@@ -349,7 +359,15 @@
                </div>
             </section>
             <!-- /.content -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
          </div>
+         <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 
          <?php endforeach; ?>
 

@@ -46,6 +46,7 @@ class Empcategory1 extends BaseController
                 $emp=new CategoryModel1();   											     
                 $data=[
                     'category_name'=>$this->request->getPost('category'),
+                    'catergory_number'=>$this->request->getPost('categoryNo'),
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
                 
@@ -63,7 +64,7 @@ class Empcategory1 extends BaseController
     public function category_form()
 	{		
         $emp=new CategoryModel1();   											     
-        $data['empcategory']=$emp->findall();
+        $data['empcategory']=$emp->orderBy('catergory_number', 'ASC')->findall();
         echo view('admin/employee/empcat',$data);
 
 	}
@@ -78,36 +79,7 @@ class Empcategory1 extends BaseController
 		return redirect('Category/category_form');
 	
     }
-    public function edit($id)
-    {
-        $cnt = new CategoryModel1();
-        $data['row']=$cnt->where('cnt_id',$id)->first();
-        return view('admin/client/cntedit',$data);
-    }
-    public function update($id='')
-    {
-        
-            
-        $cnt=new CategoryModel1();   
-        $cnt->find($id);   											     
-        $data=[
-            'category_name'=>$this->request->getPost('category'),
-            'updated_by'=>date('Y-m-d H:i:s'),
-        ];
-        
-        $cnt->update($id,$data); 
-        //  print_r($data); 
     
-       
-        //  print_r($data); 
-            
-				$session = session();
-				$session->setFlashdata('success','Clent Data update succesfully');
-            //    $data['action']=BASE('Usercontroller/update'.$id);
-                   return redirect('Cnt/cnt_form');
-                 
-    }
-
 
 
 }

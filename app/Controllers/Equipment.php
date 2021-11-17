@@ -42,12 +42,30 @@ class Equipment extends BaseController
    
     public function te_insert()
     {
+        // $validation_msg=$this->validate([
+        //     'peid'=>'required',
+        //      'petype'=>'required',
+        //      'pemodel'=>'required',
+        // ],
+        // [
+        //     'peid'=>['required'=>'PE ID Number Is Required...'],
+        //      'petype'=>['required'=>'PE Type  Is Required.'],
+        //      'pemodel'=>['required'=>'PE TYpe Is Required.'],
+            
+        // ]);
+        // if(!$validation_msg)
+        // {
+        //     $errors_msg['error']=$this->validation->getErrors();
+        //     return view('admin/equipment/teadd',$errors_msg);
+
+        // }else {
+     
                 $te=new EquipmentModel();   											     
                 $data=[
                     'pe_id'=>$this->request->getPost('peid'),
                     'pe_type'=>$this->request->getPost('petype'),
                      'pe_model'=>$this->request->getPost('pemodel'),
-                    'status'=>$this->request->getPost('status'),
+                    'status'=>$this->request->getPost('s'),
                     'per_day_charge'=>$this->request->getPost('charge'),
                     'maintanence'=>$this->request->getPost('maintinace'),
                     'registration_expiry'=>$this->request->getPost('expiry'),   
@@ -55,8 +73,7 @@ class Equipment extends BaseController
                 ];
                 
                 $te->insert($data);
-				  print_r($data); 
-                
+                       
 
 			  $session = session();
 			$this->session->setFlashdata('success','Equipment Record insert succesfully');
@@ -109,11 +126,11 @@ class Equipment extends BaseController
             'pe_id'=>$this->request->getPost('peid'),
             'pe_type'=>$this->request->getPost('petype'),
              'pe_model'=>$this->request->getPost('pemodel'),
-            'status'=>$this->request->getPost('status'),
+            'status'=>$this->request->getPost('s'),
             'per_day_charge'=>$this->request->getPost('charge'),
             'maintanence'=>$this->request->getPost('maintinace'),
             'registration_expiry'=>$this->request->getPost('expiry'),   
-              'company_address'=>$this->request->getPost('company_address'),
+            //   'company_address'=>$this->request->getPost('company_address'),
             'updated_by'=>date('Y-m-d H:i:s'),
         ];
         

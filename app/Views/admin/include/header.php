@@ -1,5 +1,5 @@
 <header class="main-header">
-            <a href="<?=BASE; ?>index-2.html" class="logo">
+            <a href="<?=BASE; ?>" class="logo">
                <!-- Logo -->
                <span class="logo-mini">
                <img src="<?=BASE; ?>assets/dist/img/mini-logo.png" alt="">
@@ -10,7 +10,7 @@
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top">
-               <a href="<?=BASE; ?>#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+               <a href="<?=BASE; ?>" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                   <!-- Sidebar toggle button-->
                   <span class="sr-only">Toggle navigation</span>
                   <span class="pe-7s-angle-left-circle"></span>
@@ -86,7 +86,7 @@
                         <img src="<?=BASE; ?>assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user"></a>
                         <ul class="dropdown-menu" >
                            <li>
-                              <a href="<?=BASE; ?>profile.html">
+                              <a href="<?=BASE; ?>">
                               <?php $session= session(); ?>
                               <i class="fa fa-user"></i> <?php echo $session->get('admin'); ?></a>
                            </li>

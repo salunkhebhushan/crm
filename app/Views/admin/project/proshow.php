@@ -91,10 +91,12 @@
                               <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                  <thead>
                                  <tr class="info">
-                                    <th> SR. No </th>
+            
                                        <th>project No </th>
                                        <th>Company Name</th>
                                        <th>Project Title</th>
+                                       <th>Start Date</th>
+                                       <th>Completation Date</th>
                                        <th>Works Order status</th>
 
                                        <!-- <th>Owner Cell No</th>
@@ -106,12 +108,14 @@
                                  <tbody>
                                  <?php foreach($project as $row) : ?>
                         <tr>
-                        <td><?= $row['pro_id'] ?></td>
-                        <td><?= $row['project_no'] ?></td>
+                     
+                        <td><?= "WA00".$row['project_no'] ?></td>
 
-                          <td><?= $row['owner_company_name'] ?><a href="<?=BASE; ?>Project/pro_profile/<?= $row['pro_id'] ?>" class="btn btn-"><i class="fa fa-eye"></i></a></td>
+                          <td><a href="<?=BASE; ?>Project/pro_profile/<?= $row['pro_id'] ?>" class="btn btn-"><?= $row['owner_company_name'] ?></a></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row['project_title'] ?></td>
+                            <td><?= $row['starting_date'] ?></td>
+                             <td><?= $row['complation_date'] ?></td>
                           <td><?= $row['work_order_satus'] ?></td>
  
                           

@@ -43,7 +43,7 @@ Code Discription: this method for get joing data of clint and project table*/
 public function getProjectCodeData()
 {
   $builder = $this->db->table("project as owner");
-  $builder->select('owner.*, client.owner_company_name');
+  $builder->select('owner.*, client.clint_company_name');
   $builder->join('client', 'owner.cnt_id = client.cnt_no');
   $data = $builder->get()->getResult();
 //echo "<pre>";
@@ -55,13 +55,28 @@ Code Discription: this method to call ajax for client details*/
 public function ajaxcallClientDetails($id)
 {
   $builder = $this->db->table("project");
-  $builder->select('owner_company_name,project_title');
+  $builder->select('owner_company_name,project_title,cnt_id');
   $builder->where("project_no = $id");
   $data = $builder->get()->getResult();
 //echo "<pre>";
 //print_r($data);exit;
-
   return $data;
 }
+
+// this method for get joing data of clint and project table 
+public function fetchData()
+{
+  $builder = $this->db->table("project as owner");
+  $builder->select('owner.*, client.clint_company_name,crm_revnue.*');
+  $builder->join('client', 'owner.cnt_id = client.cnt_no');
+   $builder->join('crm_revnue', 'crm_revnue.rev_clint_id = client.cnt_no');
+  // $builder->join('crm_revnue', 'crm_revnue._id = client.cnt_no');
+
+  $data = $builder->get()->getResult();
+  //  echo "<pre>";
+  //\\ print_r($data);exit;
+  return $data;
+}
+
 
 }

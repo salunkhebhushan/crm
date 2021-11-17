@@ -20,7 +20,7 @@
                      <div class="panel panel-bd lobidrag">
                         <div class="panel-heading">
                            <div class="btn-group" id="buttonlist"> 
-                              <a class="btn btn-add " href="<?=BASE; ?>Project/pro_form"> 
+                              <a class="btn btn-add " href="<?=BASE; ?>Revenue/rev_form"> 
                               <i class="fa fa-list"></i>  Revenue List </a>  
                            </div>
                         </div>
@@ -31,6 +31,8 @@
                         <div class="panel-body">
                            <form action="<?=BASE; ?>Revenue/formValidation" method="POST"  class="col-sm-12">
                             
+                           
+                           <input type="hidden" name="hiddenId" id="hiddenId" class="form-control" >                                 
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Payment Date</label>         
@@ -40,7 +42,7 @@
                              
                               <div class="form-group col-sm-6">
                                  <label>Payment Voucher No</label>
-                                 <input type="text"  name="paymentvoucherno" id="paymentvoucherno" class="form-control"  placeholder="Enter Payment Voucher Number" >
+                                 <input type="text"  name="paymentvoucherno" id="paymentvoucherno" class="form-control"  placeholder="Enter Payment Voucher Number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class='text-danger'><?php if(isset($error['paymentvoucherno'])) {echo $error['paymentvoucherno']; } ?></div>
                               </div>
                            </div>
@@ -49,7 +51,7 @@
                            <div class="row">
                               <div class="form-group col-sm-6">
                                  <label>Invoice No.</label>         
-                                 <input type="text"  name="invoceno" id="invoceno" class="form-control"  placeholder="Enter Invoice Number" >
+                                 <input type="text"  name="invoceno" id="invoceno" class="form-control"      >
                                  <div class="text-danger"></div>
                               </div>
                               <!-- <div class="form-group col-sm-6">
@@ -62,7 +64,7 @@
                                  <select id="projectCode" class="form-control"  name="projectCode" >
                                     <option value="0">Select Project Code</option>
                               <?php if(isset($projectCode)) foreach($projectCode as $codeList){?>
-                                 <option value="<?php echo $codeList->project_no;?>"><?php echo $codeList->project_no;?></option>
+                                 <option value="<?php echo $codeList->project_no;?>"><?php echo "WA00".$codeList->project_no;?></option>
                                     <?php }?>                              
                                  </select>
                                  <div class='text-danger'><?php if(isset($error['projectCode'])) {echo $error['projectCode']; } ?></div>
@@ -72,12 +74,12 @@
                            <div class="row">
                            <div class="form-group col-sm-6">
                                  <label>Company Name</label>
-                                 <input type="text" name="companyname" id="companyname" class="form-control" placeholder="Enter Company Name"  >
+                                 <input type="text" name="companyname" id="companyname" class="form-control" placeholder="Enter Company Name"  readonly>
                                  <div class='text-danger'><?php if(isset($error['companyname'])) {echo $error['companyname']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
                                  <label>Project Title</label>
-                                 <input type="text" name="projecttitle" id="projecttitle"class="form-control" placeholder="Enter Project Title"  >
+                                 <input type="text" name="projecttitle" id="projecttitle"class="form-control" placeholder="Enter Project Title" readonly  >
                                  <div class='text-danger'><?php if(isset($error['projecttitle'])) {echo $error['projecttitle']; } ?></div>
                                 </div>
                               </div>
@@ -85,13 +87,13 @@
                            <div class="row"> 
                               <div class="form-group col-sm-6">
                                  <label>Cash Amount </label>
-                                 <input type="text" name="cashamt" id="cashamt" class="form-control" placeholder="Enter Cash Amount" >
+                                 <input type="text" name="cashamt" id="cashamt" class="form-control" placeholder="Enter Cash Amount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class='text-danger'><?php if(isset($error['cashamt'])) {echo $error['cashamt']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Cheque Amount</label>
-                                 <input type="text" name="chequeamt" id="chequeamt" class="form-control" placeholder="Enter Cheque Amount">
+                                 <input type="text" name="chequeamt" id="chequeamt" class="form-control" placeholder="Enter Cheque Amount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 
                                  <div class='text-danger'><?php if(isset($error['chequeamt'])) {echo $error['chequeamt']; } ?></div>
                               </div>
                            </div>
@@ -116,7 +118,7 @@
                               
                            <div class="form-group col-sm-6">
                                  <label>Invoice Amount</label>
-                                 <input type="text" name="invamt" id="invamt" class="form-control" placeholder="Enter Invoice Amount" >
+                                 <input type="text" name="invamt" id="invamt" class="form-control" placeholder="Enter Invoice Amount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class='text-danger'><?php if(isset($error['invamt'])) {echo $error['invamt']; } ?></div>
                               </div>
                            <div class="form-group col-sm-6">
@@ -129,16 +131,16 @@
                               <div class="row"> 
                               <div class="form-group col-sm-6">
                                  <label>Total  Paid</label>
-                                 <input type="text" name="totalpaid" id="totalpaid" class="form-control" placeholder="Total Paid Amount">
+                                 <input type="text" name="totalpaid" id="totalpaid" class="form-control" placeholder="Total Paid Amount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                  <div class='text-danger'><?php if(isset($error['totalpaid'])) {echo $error['totalpaid']; } ?></div>
                               </div>
                             
                               <div class="form-group col-sm-6">
                                  <label>Balance Amount</label>
-                                 <input type="text" name="balanceAmt" id="balanceAmt" class="form-control" placeholder="Enter Balance Amount">
+                                 <input type="text" name="balanceAmt" id="balanceAmt" class="form-control" placeholder="Enter Balance Amount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                  <div class='text-danger'><?php if(isset($error['balanceAmt'])) {echo $error['balanceAmt']; } ?></div>
-                           </div>
-
+                               </div>
+                                </div>
                            <div class="row"> 
                               <div class="form-group col-sm-6">
                                  <label>Sadqa</label>
@@ -151,13 +153,14 @@
                                  <input type="text" name="chequeStatus" id="chequeStatus" class="form-control" placeholder="Enter Cheque Status" >
                                  <div class="text-danger"></div>
                               </div>
+                              
                            </div>
 
 
                            <div class="row"> 
                            <div class="form-group col-sm-6">
                                  <label>Cheque Number</label>
-                                 <input type="text" name="chequnumb" id="chequnumb" class="form-control" placeholder="Enter Cheque Number" >
+                                 <input type="text" name="chequnumb" id="chequnumb" class="form-control" placeholder="Enter Cheque Number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                  <div class='text-danger'><?php if(isset($error['chequnumb'])) {echo $error['chequnumb']; } ?></div>
                               </div>
                               <div class="form-group col-sm-6">
@@ -215,7 +218,8 @@
             { 
                
               $('#companyname').val(response.ajaxClientDetails[0].owner_company_name);
-              $('#projecttitle').val(response.ajaxClientDetails[0].project_title);    
+              $('#projecttitle').val(response.ajaxClientDetails[0].project_title);  
+              $('#hiddenId').val(response.ajaxClientDetails[0].cnt_id);    
        
          }
    });

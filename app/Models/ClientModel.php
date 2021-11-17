@@ -47,6 +47,15 @@ class ClientModel extends Model{
         return $data;
     }
 
+public function allClients()
+	{
+	     $builder = $this->db->table("client");
+      $builder->countAll();
+      $data = $builder->get()->getResult();
+       echo "<pre>";
+       print_r($data);exit;
+    return $data;
+	}
 
 
 }

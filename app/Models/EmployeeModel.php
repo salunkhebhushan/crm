@@ -23,6 +23,7 @@ class EmployeeModel extends Model{
     'email',
     'mobile',
     'project',
+    'category_name',
     'category',
     'doj',
     'father_name',
@@ -52,21 +53,48 @@ class EmployeeModel extends Model{
     'dedate',
     'passport_img',
     'img_name',
-    'img_type',
+    'passport_doc',
+    'emirate_doc',
+    'visa_doc',
+    'driving_doc',
+    'wrkstatus',
     'created_at',
     'updated_by'
    ];
    
-   public function getlastinsetedid()
-   {
-     $builder = $this->db->table("employees");
-     $builder->select('emp_id');
-     $data = $builder->get()->getResult();
-     echo $this->db->insertID();
-   //echo "<pre>";
-   //print_r($data);exit;
-   
-     return $data;
-   }
+
+  //  public function fetchCat()
+  //  {
+  //   $builder = $this->db->table("category");
+  //   $builder->select('*','category_name');
+  //   $data = $builder->get()->getResult();
+  //   echo "<pre>";
+  // //   print_r($data);exit;
+  //  return $data;
+  //  }
+
+  /**get last id  */
+function fetchLastInsertedIDEmp($selectedCategory) 
+{
+      $builder = $this->db->table("employees");
+      $builder->select('emp_no');
+      $builder->where("category = $selectedCategory");
+      $builder->orderBy('emp_no', 'DESC');
+      $builder->limit(1);
+      $data = $builder->get()->getResult();
+    return $data;
+}
+
+
+// public function activeEmp()
+// 	{
+// 	     $builder = $this->db->table("employees");
+// 	    $builder->where('wrkstatus','active');
+//       $builder->countAll();
+//       $data = $builder->get()->getResult();
+//     //   echo "<pre>";
+//     //   print_r($data);exit;
+//     return $data;
+// 	}
 
 }

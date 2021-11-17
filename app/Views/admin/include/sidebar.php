@@ -4,7 +4,7 @@
                <!-- sidebar menu -->
                <ul class="sidebar-menu">
                   <li class="active">
-                     <a href="<?=BASE; ?>index-2.html"><i class="fa fa-tachometer"></i><span>Dashboard</span>
+                     <a href="<?=BASE; ?>"><i class="fa fa-tachometer"></i><span>Dashboard</span>
                      <span class="pull-right-container">
                      </span>
                      </a>
@@ -17,13 +17,26 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                     <li><a href="<?=BASE; ?>Empcategory1/category_form">Add Epmloyees Categoty </a></li>                        
-                        <li><a href="<?= BASE; ?>Employee/emp_add">Add Employees</a></li>
                         <li><a href="<?=BASE; ?>Employee/emp_form">List</a></li>
+                        <li><a href="<?= BASE; ?>Employee/emp_add">Add Employees</a></li>
+                     <li><a href="<?=BASE; ?>Empcategory1/category_form">Add Epmloyees Categoty </a></li>                        
+
                         <!-- <li><a href="<=BASE; ?>group.html">Groups</a></li> -->
                      </ul>
                   </li>
-
+                    <li class="treeview">
+                     <a href="<?=BASE; ?>#">
+                     <i class="fa fa-bell"></i><span>Attendance</span>
+                     <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+                     </a>
+                     <ul class="treeview-menu">
+                        <li><a href="<?=BASE; ?>Attendence/attendence_add"> Add Attendance</a></li>
+                        <li><a href="<?=BASE; ?>Attendence/attendance_form"> Daily Attendance Show</a></li>
+                        <li><a href="<?=BASE; ?>Attendence/montly_attendance_form"> Montly Attendance Show</a></li>
+                     </ul>
+                  </li>
                   <li class="treeview">
                      <a href="<?=BASE; ?>#">
                      <i class="fa fa-user-circle"></i><span>Clients</span>
@@ -76,24 +89,12 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="<?= BASE; ?>Subcontractor/sub_add">Add project</a></li>
-                        <li><a href="<?= BASE; ?>Subcontractor/sub_form">Project Details</a></li>
+                        <li><a href="<?= BASE; ?>Subcontractor/sub_add">Add Sub Contactor</a></li>
+                        <li><a href="<?= BASE; ?>Subcontractor/sub_form">Sub Contactor</a></li>
                      </ul>
                   </li>
 
-                  <li class="treeview">
-                     <a href="<?=BASE; ?>#">
-                     <i class="fa fa-bell"></i><span>Attendance</span>
-                     <span class="pull-right-container">
-                     <i class="fa fa-angle-left pull-right"></i>
-                     </span>
-                     </a>
-                     <ul class="treeview-menu">
-                        <li><a href="<?=BASE; ?>thistory.html">Time History</a></li>
-                        <li><a href="<?=BASE; ?>timechange.html">Time Change Request</a></li>
-                        <li><a href="<?=BASE; ?>atreport.html">Attendance Report</a></li>
-                     </ul>
-                  </li>
+               
                   
                   <li class="treeview">
                      <a href="<?=BASE; ?>#">
@@ -171,7 +172,7 @@
                   </li>
                   
                 
-                  <li class="treeview">
+                  <!-- <li class="treeview">
                      <a href="<?=BASE; ?>#">
                      <i class="fa fa-shopping-basket"></i><span>clients</span>
                      <span class="pull-right-container">
@@ -187,7 +188,7 @@
                         <li><a href="<?=BASE; ?>generatepay.html">Generate payslip</a></li>
                         <li><a href="<?=BASE; ?>paysum.html">Payroll summary</a></li>
                      </ul>
-                  </li>
+                  </li> -->
                   <!-- <li class="treeview">
                      <a href="#">
                      <i class="fa fa-bitbucket-square"></i><span>Stock</span>
@@ -216,7 +217,7 @@
                         <li><a href="<?=BASE; ?>allticket.html">All Tickets</a></li>
                      </ul>
                   </li> -->
-                  <li class="treeview">
+                  <!-- <li class="treeview">
                      <a href="<?=BASE; ?>#">
                      <i class="fa fa-list"></i>
                      <span>Utilities</span>
@@ -229,7 +230,7 @@
                         <li><a href="<?=BASE; ?>emailmes.html">Email message log</a></li>
                         <li><a href="<?=BASE; ?>systemsts.html">System status</a></li>
                      </ul>
-                  </li>
+                  </li> -->
                   <li class="treeview">
                      <a href="<?=BASE; ?>#">
                      <i class="fa fa-bar-chart"></i><span>Charts</span>
@@ -317,7 +318,7 @@
                         <li><a href="<?=BASE; ?>paysetting.html">Payment</a></li>
                      </ul>
                   </li>-->
-                  <li> 
+                  <!-- <li> 
                      <a href="<?=BASE; ?>company.html">
                      <i class="fa fa-home"></i> <span>Companies</span>
                      <span class="pull-right-container">
@@ -395,6 +396,6 @@
                      </a>
                   </li>
                </ul>
-            </div>
+            </div> -->
             <!-- /.sidebar -->
          </aside>

@@ -64,19 +64,18 @@
                                  <?php foreach($emp as $row) : ?>
                         <tr>
                         						
-                        <td><?= $row->sub_no; ?></td>
-                          <td><?= $row->owner_company_name; ?></td>
-                          <td><?= $row->owner_name; ?></td>
+                        <td><?= "SC-".$row->sub_no; ?> </a></td>
+                          <td><a href="<?=BASE; ?>Subcontractor/sub_profile/<?= $row->sub_id; ?>" class="btn btn-"><?= $row->sub_company_name; ?></a></td>
+                          <td><?= $row->sub_owner_name; ?></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
                           <td><?= $row->sub_cell_no; ?></td>
                           <td><?= $row->sub_email; ?></td>
                           <td><?= $row->sub_contact_person; ?></td>
                           
                           <td><?= $row->sub_contact_cell_no; ?></td>
-                          <td><?= $row->sub_contact_email; ?></td>
+                          <!-- <td><= $row->sub_contact_email; ?></td> -->
                           
-                          <td><a href="<?=BASE; ?>Subcontractor/sub_profile/<?= $row->sub_id; ?>" class="btn btn-"><i class="fa fa-eye"></i></a>
-                         
+                          <td> 
                           <a href="<?=BASE; ?>Subcontractor/edit/<?= $row->sub_id; ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
                           <a href="<?=BASE; ?>Subcontractor/delete/<?= $row->sub_id; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>

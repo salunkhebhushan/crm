@@ -32,7 +32,7 @@
                           
                            <p class="card-text mb-3"><span class="text-primary"></span> <?= $row['owner_email'] ?> </p>
 
-                              <p class="card-text mb-3"><span class="text-primary">Client No :</span><b> <?= $row['cnt_no'] ?>   </b></p>
+                              <p class="card-text mb-3"><span class="text-primary">Client No :</span><b> <?= "CA00".$row['cnt_no'] ?>   </b></p>
                               
                              
                               <!-- <a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm" data-toggle="modal" data-target="#add_basicInformation"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -67,7 +67,7 @@
                               
                            <div class="row">
                               <div class="col-md-6">
-                              <p class="card-text mb-3"><span class="text-primary">Owner Company Name :</span> <?= $row['owner_company_name'] ?></p>
+                              <p class="card-text mb-3"><span class="text-primary">Owner Company Name :</span> <?= $row['clint_company_name'] ?></p>
                               </div>
                               <div class="col-md-6">
                               <p class="card-text mb-3"><span class="text-primary">Owner Cell No : </span><?= $row['owner_cellno'] ?></p>

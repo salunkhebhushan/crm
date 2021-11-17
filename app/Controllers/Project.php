@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 use App\Models\ProjectModel;
-
+use App\Models\SubcontractorModel;
+use App\Models\Project_atvModel;
+use App\Models\AttendanceModel;
 class Project extends BaseController
 {
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger){
@@ -12,6 +14,8 @@ class Project extends BaseController
 		header("Access-Control-Allow-Methods: *");
 		header("Access-Control-Allow-Headers: * ");
         $this->model = new ProjectModel();
+         $this->model = new SubcontractorModel();
+		   $this->model = new AttendanceModel();
    
 	}
 	function __construct(){
@@ -21,7 +25,7 @@ class Project extends BaseController
 
 	public function index()
 	{    
-        return view('main_content');
+        return view('admin/project/proadd');
 	} 
 	
     public function pro_add()
@@ -29,6 +33,7 @@ class Project extends BaseController
         $getClintList = new ProjectModel();
         // geting the client list in project modal form
         $dataArr['getListOfClintDetails'] = $getClintList->getListOfClintDetails();
+        $dataArr['getListOfSubContractor'] = $getClintList->getSubContractorDetails();
 		echo view('admin/project/proadd',$dataArr);
 	}
 
@@ -44,8 +49,6 @@ class Project extends BaseController
                      
                 ],
                 [
-                     
-                     
                      'projectstatus'=>['required'=>'Enter Project Status'],
                      'projectexpens'=>['required'=>'Enter Project Expenses'],
                      'projectrevenue'=>['required'=>'Enter Total Revenue'],
@@ -103,6 +106,25 @@ class Project extends BaseController
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
                
+               $data_atv=$this->request->getPost();
+                for($i=0;$i<sizeof($data_atv['activity1']);$i++)
+                {
+            
+                    $arr=array('m1'=>$data_atv['activity1'][$i],
+                    'rate'=>$data_atv['activity2'][$i],
+                    'complate'=>$data_atv['activity3'][$i],
+                    'inprogress'=>$data_atv['activity4'][$i],
+                    'project_id'=>$arrLastid['project_no'],
+                    'created_at'=>date('Y-m-d H:i:s')
+                    );
+                
+                      $main_arr[]=$arr;
+                }
+                
+                $atv=new Project_atvModel();   
+                    
+                $atv->insertBatch($main_arr);
+                
                 $pro->insert($data);
               
 				//  print_r($data); 
@@ -155,16 +177,211 @@ class Project extends BaseController
 		echo view('admin/project/proshow',$data);
 		
 	}
-    public function pro_profile($id)
+	 public function pro_profile($id)
     {
 
                 $pro=new ProjectModel();   		
         $pro_id=$pro->where('pro_id',$id);
         //$emp_id=$emp->where('emp_id',$id);
-        
         $data['pro_profile']=$pro->find($pro_id);
+      
+        $now = time(); // or your date as well
+        $start_date = strtotime($complationDate = $data['pro_profile'][0]['starting_date']);
+        $completation_date = strtotime($complationDate = $data['pro_profile'][0]['complation_date']);
+       // $Remaining = strtotime($complationDate = $data['pro_profile'][0]['days_compated']);
+         
+        $datediff = $now - $start_date;
+       
+         $data['dayCompleted'] = round($datediff / (60 * 60 * 24));  // day complited code
+         $calculateDays = $completation_date - $start_date ;
+         $days =  round($calculateDays / 86400);
+         $data['dayRemaining'] =$days -   $data['dayCompleted'];
+         
+       //  $data['dayRemaining'] = round($datediff2 / (60 * 60 * 24));  // day remaining code
+        
+         $project_no = $data['pro_profile'][0]['project_no'];
+         $projectAttendance=new  AttendanceModel();
+      
+        $data['attendProjectList'] =  $projectAttendance->where('att_date',date('Y/m/d'))->find();
+       if(!empty($data['attendProjectList']))
+       {
+            $attendProjectID = $data['attendProjectList'][0]['att_project_code'];
+      
+        $attendProjectempID = $data['attendProjectList'][0]['att_emp_id'];
+       
+       
+       
+        $explode = explode(',',$attendProjectID);
+        $explodeempID = explode(',',$attendProjectempID);
+        $array = array_combine($explodeempID, $explode);
+     
+        foreach ($array as  $key => $val)
+        { 
+            if(isset($val) && $val=== $project_no) 
+            {
+               
+                  $emp_no[] = $key ;
+                 
+            }
+        }
+       $multiDimention = array();
+       foreach ($explode as $ids)
+       {  
+        $multiDimention[]['userset'] = $ids;
+       } 
+
+    
+         if(isset(array_count_values(array_column($multiDimention, 'userset'))[$project_no])|| isset($emp_no))
+         {
+         $data['noOfWorkerCount'] =  array_count_values(array_column($multiDimention, 'userset'))[$project_no]; // outputs: 2
+          $data['emp_no'] = $emp_no;
+           $data['emp_no'] =  implode(",", $emp_no);
+          $_SESSION['emp_no'] = $data['emp_no'];
+         }else
+         {
+            $data['noOfWorkerCount']  = "-";
+            $data['emp_no'] = '-';
+            if(isset($_SESSION['emp_no']))
+            {
+             unset($_SESSION['emp_no']);
+            }
+         }
+       }else
+       {
+            $data['noOfWorkerCount']  = "-";
+            $data['emp_no'] = '-';
+       }
+        // $att=new Project_atvModel();   		
+       // $data['activity_project']=$att->getProjectWiseAtv($project_no);
         echo view('admin/project/pro_profile',$data);
     }
+// project activity  
+	public function activity_form($pro_code)
+	{		
+       $data['projectID'] = $pro_code;
+       if(isset($_SESSION['emp_no']))
+            {
+              $data['emp_id'] = $_SESSION['emp_no'];
+             
+            }
+            // print_r($data['emp_id']);exit;
+      
+		echo view('admin/project/activity_add',$data);
+		
+	}
+	// project activity  insert
+	public function activity_insert()
+	{	 
+	    
+	  // print_r($_POST); exit;
+	      $pro=new ProjectModel();
+	        $atv=new Project_atvModel();   
+	     /** this code project autogenerated id in serial number
+                  * Authur : Bhushan G Salunkhe
+                 */
+            
+          $pro_id=$this->request->getPost('hdn');
+       $emp_no=$this->request->getPost('empid');
+        $atv_name=$this->request->getPost('activity_name');
+         $atvdate=$this->request->getPost('atvdate');
+         $where = "activity_name='$atv_name' AND created_at='$atvdate'";
+         $data=$atv->where($where)->first();
+        // $status = true;
+        if($data)
+        {
+        // echo "Record Alredy Exist please enter qnique name";
+           $session = session();
+			$this->session->setFlashdata('warning','Record alredy exist on this date please enter qnique Activity name');
+        }
+        else
+        {
+            // echo "Record Not Exist" ;
+       
+         $data_atv=$this->request->getPost();
+                // for($i=0;$i<sizeof($data_atv['activity_name']);$i++)
+                
+                  
+                    $arr=array('activity_name'=>$this->request->getPost('activity_name'),
+                    'm1'=>$this->request->getPost('meter'),
+                    'rate'=>$this->request->getPost('rate'),
+                    'location'=>$this->request->getPost('location'),
+//                    'complate'=>$this->request->getPost('complete'),
+                    'project_id'=>$pro_id,
+                    'act_emp_no'=>$emp_no,
+                    'created_at'=> date("Y-m-d"));
+                    //   $main_arr[]=$arr;
+                     
+                     
+                
+            //   print_r($arr);exit;
+              
+                    // $atv->insertBatch($arr);
+                $atv->insert($arr);
+        
+                	  $session = session();
+			$this->session->setFlashdata('success','Project Activity Record insert succesfully');
+        }
+	       // return $this->response->redirect(site_url('Project/pro_profile'));
+	             return redirect('Pro/pro_form');
+		
+	}
+	
+	// for desplay activity report
+	public function atv_form($pro_code)
+	{		
+          $atv=new Project_atvModel();      
+          $data['getActivity']=$atv->table("project_activities")->orderBy('pro_atv_id','desc')->findall();
+        
+          $data['projectCode'] = $pro_code;
+         
+          $i=0;
+         foreach($data['getActivity'] as $empno)
+         {
+             $empid[] = $empno['act_emp_no'] ;
+             $array[] = explode(',', $empid[$i]);
+             $i++;
+         }
+         foreach ($array as $key)
+         {
+             
+          $getEmpName[] = $atv->activity_record($key);
+         
+         } 
+           $list=array();
+                $list =  $getEmpName;
+              
+                $i=0; 
+             foreach($list as $user) 
+             {  
+               foreach($user as $key)
+            {
+               $ids[] = $key[0];
+            }
+               
+            } 
+         
+         $names = array_column($ids, 'first_name');
+          $activityName = array_column( $data['getActivity'], 'activity_name');
+         
+          $data['arrayUniqueName'] = array_unique($names);
+          $data['activity_name'] = array_unique($activityName);
+        
+       
+		 echo view('admin/project/activity_report',$data);
+		
+	}
+	// project activity  delete
+	public function atv_delete($id)
+    {
+       $atv=new Project_atvModel();											     
+        $atv->where('pro_atv_id',$id)->delete();
+        $session = session();
+		$session->setFlashdata('success','Project Activity record delete succesfully');
+        //   return $this->response->redirect(site_url('Project/pro_profile'));
+       return redirect('Pro/pro_form');
+        
+    }
+   
   //'picture'=>['required'=>'First Shop Name Required...'
 // 'exact_length[10]'=>'Mobile nimber must be a  digit.'
 
@@ -173,7 +390,7 @@ class Project extends BaseController
         $cnt=new ProjectModel();   											     
         $cnt->where('pro_id',$id)->delete();
         $session = session();
-		$session->setFlashdata('success','Client record delete succesfully');
+		$session->setFlashdata('success','Project record delete succesfully');
         return redirect('Pro/pro_form');
 
     }
@@ -181,8 +398,18 @@ class Project extends BaseController
     {
         $cnt = new ProjectModel();
         $data['getListOfClintDetails'] = $cnt->getListOfClintDetails();
+        $data['getListOfSubContractor'] = $cnt->getSubContractorDetails();
         $data['row']=$cnt->where('pro_id',$id)->first();
-      
+        
+    
+       $project_no = $data['row']['project_no'];
+       $atv=new Project_atvModel();   		
+        $data['activity_project1']=$atv->getProjectWiseAtv($project_no);
+      //  echo "<pre>";
+      // print_r($data['activity_project1']); exit;
+        // $atv=new Project_atvModel();
+        // $data['row']=$atv->where('pro_atv_id',$id)->first();
+        
         return view('admin/project/proedit',$data);
 
     }
@@ -218,6 +445,32 @@ class Project extends BaseController
         //$cnt=new ClientModel(); 
         $cnt->find($id);   											     
 
+
+     $data['row']=$cnt->where('pro_id',$id)->first();
+     
+       $project_no = $data['row']['project_no'];
+
+        
+                // echo "<pre>";
+                // print_r($oroject_no);exit;
+        
+                $arrLastid = array();
+               if(!empty($data['lastID']))
+               {  
+                   $j=0;
+        
+                while($data['lastID'][0]->project_no > $j)
+                 {
+                   $j =  $data['lastID'][0]->project_no + 1 ;
+                   $arrLastid['project_no'] = $j ;
+                   $j++;
+                 }
+               }else
+               {  
+                $j= 1;
+                 $arrLastid['project_no'] = $j ;
+               }
+                  $atv=new Project_atvModel();   
             $data=[
                 'project_no'=>$this->request->getPost('projectno'),
                 'cnt_id'=>$this->request->getPost('clientno'),
@@ -227,7 +480,7 @@ class Project extends BaseController
                 'starting_date'=>$this->request->getPost('sdate'),
                 'complation_date'=>$this->request->getPost('cdate'),
                 'days_compated'=>$this->request->getPost('daycomplate'),   
-                'days_remaining'=>$this->request->getPost('dayremaining'),
+               // 'days_remaining'=>$this->request->getPost('dayremaining'),
                 'pro_status'=>$this->request->getPost('projectstatus'),
                 'sub_ctr_code'=>$this->request->getPost('code'),
                 'sub_ctr_name'=>$this->request->getPost('name'),
@@ -236,7 +489,49 @@ class Project extends BaseController
                 'profit_loss'=>$this->request->getPost('profitloss'),
                 'updated_by'=>date('Y-m-d H:i:s'),
             ];
-        $cnt->update($id,$data); 
+           
+                    
+       
+                $data_atv=$this->request->getPost();
+    
+          $pro_id=$this->request->getPost('hdn');
+       $emp_no=$this->request->getPost('empid');
+               
+                for($i=0;$i<sizeof($data_atv['activity_name']);$i++)
+                {
+            
+                    $arr=array('activity_name'=>$data_atv['activity_name'][$i],
+                    'm1'=>$data_atv['meter'][$i],
+                    'rate'=>$data_atv['rate'][$i],
+                    'location'=>$data_atv['location'][$i],
+                    'pro_atv_id'=>$data_atv['hiddenAtv11'][$i],
+                    // 'act_emp_no'=>$data_atv['hiddenAtv11'][$i],
+                    'location'=>$data_atv['location'][$i],
+                    'act_emp_no'=>$emp_no,
+                    'project_id'=>$pro_id,
+                    'order_status'=>$data_atv['order_status'][$i]);
+                      $main_arr[]=$arr;
+                      
+                      
+                }
+              // echo "<pre>";
+              // print_r($main_arr);exit;
+                    // $data['row']['pro_atv_id'];
+                //   echo "<pre>";
+                //   print_r($data['row']['pro_atv_id']);exit;
+                //   if(empty($data['row']['pro_atv_id']))
+                //   {
+                      $atv->updateBatch($main_arr,'pro_atv_id');
+                //   }else
+                //   {
+                //       $atv->insertBatch($main_arr);
+                //   }
+                 
+            //   $atv->getLastQuery();
+                // echo "<pre>";
+                // print_r($atv);exit;
+            $cnt->update($id,$data); 
+            
         } 
 				$session = session();
 				$session->setFlashdata('success','Project Data update succesfully');
@@ -262,6 +557,20 @@ class Project extends BaseController
                 echo json_encode($dataArr['ajaxClientName']);
             }
     }
+    }
+    
+    
+    public function ajaxGetSubContractCode()
+    {  $subCode = new SubcontractorModel();
+        if($_POST['post_id'])
+        {  
+            $id= $_POST['post_id'];
+           $sub_id =$subCode->where('sub_no',$id);
+           $data['sub_contractor_code']=$subCode->find($sub_id);
+           echo json_encode($data);
+    }
+    
+    
     }
 
 

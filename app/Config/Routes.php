@@ -39,7 +39,6 @@ $routes->get('/', 'Home::index');
 $routes->get('/', 'Employees::index');
 $routes->get('/Employees/emp_form', 'Employee::emp_form');
 $routes->post('/Employees/emp_add','Employee::emp_form');
-$routes->post('/Employees/emp_insert','Employee::emp_insert');
 $routes->get('/Employees/delete/(:num)', 'Employee::delete/$1');
 $routes->get('/Employees/edit/(:num)', 'Employee::edit/$1');
 $routes->post('/Employees/update/(:num)', 'Employee::update/$1');
@@ -68,7 +67,7 @@ $routes->post('/Cnt/update/(:num)', 'Client::update/$1');
 
 //Project 
  
-$routes->get('/', 'Project::index');
+$routes->get('/Pro', 'Project::index');
 $routes->get('/Pro/pro_form', 'Project::pro_form');
 $routes->post('/Pro/pro_add','Project::pro_form');
 $routes->get('/Pro/delete/(:num)', 'Project::delete/$1');
@@ -76,6 +75,7 @@ $routes->get('/Pro/edit/(:num)', 'Project::edit/$1');
 $routes->post('/Pro/update/(:num)', 'Project::update/$1');
 $routes->post('/search_client', 'Project::search_client');
 
+//$routes->get('/atv', 'Project::pro_profile/$1');
 
 
 
@@ -108,6 +108,40 @@ $routes->post('/Activities/activities_add','Subactivities::activities_form');
 $routes->get('/Activities/delete/(:num)', 'Subactivities::delete/$1');
 $routes->get('/Activities/edit/(:num)', 'Subactivities::edit/$1');
 $routes->post('/Activities/update/(:num)', 'Subactivities::update/$1');
+
+
+
+//Revenue 
+
+$routes->get('/', 'Revenue::index');
+$routes->get('/Rev/rev_form', 'Revenue::rev_form');
+$routes->post('/Rev/rev_add','Revenue::rev_form');
+$routes->get('/Rev/delete/(:num)', 'Revenue::delete/$1');
+$routes->get('/Rev/edit/(:num)', 'Revenue::edit/$1');
+$routes->post('/Rev/update/(:num)', 'Revenue::update/$1');
+$routes->get('/Rev/rev_profile/(:num)', 'Revenue::rev_profile/$1');
+
+
+
+//Attendane 
+
+// $routes->get('/Att', 'Attendence::index');
+// $routes->get('/Att/attendance_form', 'Attendence::attendance_form');
+//  $routes->post('/Att/att_add','Attendence::attendance_form');
+// $routes->get('/Att/delete/(:num)', 'Attendence::delete/$1');
+// $routes->get('/Att/edit/(:num)', 'Attendence::edit/$1');
+// $routes->post('/Att/update/(:num)', 'Attendence::update/$1');
+// $routes->get('/Att/rev_profile/(:num)', 'Attendence::rev_profile/$1');
+
+//Project activity 
+ 
+$routes->get('/', 'Project::index');
+$routes->get('/Pro/pro_form', 'Project::pro_form');
+$routes->post('/Pro/pro_add','Project::pro_form');
+$routes->get('/Pro/delete/(:num)', 'Project::delete/$1');
+$routes->get('/Pro/edit/(:num)', 'Project::edit/$1');
+$routes->post('/Pro/update/(:num)', 'Project::update/$1');
+$routes->post('/search_client', 'Project::search_client');
 
 
 //$routes->get('/Employees/emp_profile/(:num)', 'Client::cnt_profile/$1');

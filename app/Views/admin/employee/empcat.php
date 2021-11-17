@@ -31,21 +31,30 @@
                            <form action="<?=BASE; ?>Empcategory1/category_insert" method="POST"  enctype="multipart/form-data" class="col-sm-12">
                               
                             <div class="row">
-                              <div class="form-group col-sm-6">
+                              <div class="form-group col-sm-3">
                                  <label>Add Category </label>         
                                  <input type="text"  name="category" id="category" class="form-control"  placeholder="Enter Employees Category"   >
                               </div>
                             
-                            
+                              <div class="form-group col-sm-3">
+                                 <label>Category Number Assing</label>
+                                 <input type="text" name="categoryNo" id="categoryNo"  class="form-control" placeholder="Enter Assing Number" value="<?= set_value('categoryNo'); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                                 <div class="text-danger"><?php if(isset($error['categoryNo'])) {echo $error['categoryNo']; } ?></div>
+                              </div >
+                              
                            </div>
-        
-                         
-
-                           <div class="form-group">
-                    <button type="submit" id="submit" name="submit" class="btn btn-success">
+                            <div class="row">
+                           <div class="form-group col-sm-1">
+                              <label class=""> </label>
+                    <button type="submit" id="submit" name="submit" class="btn btn-success " >
                     Save
                     </button> 
                   </div>
+                  </div>
+        
+                         
+
+                         
             </div>         
                           
              </form>
@@ -61,8 +70,9 @@
              <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                  <thead>
                                     <tr class="info">
-                                       <th>Category Id </th>
+                                       <!--<th>Category Id </th>-->
                                        <th>Category Name</th>
+                                       <th>Category Number</th>
                                     
                                        
                                        <th>Action</th>
@@ -71,10 +81,10 @@
                                  <tbody>
                                  <?php foreach($empcategory as $row) : ?>
                         <tr>
-                        <td><?= @$row['ctg_id'] ?></td>
+                
                           <td><?= @$row['category_name'] ?></td>
                           <!-- <td><img  src="< "/uploads/".$row['pd_img'] ?>" height="100px" width="100px" alt="image"> </td> -->
-                            
+                          <td><?= @$row['catergory_number'] ?></td>
                           <td>
                           <a href="<?=BASE; ?>Empcategory1/delete/<?= @$row['ctg_id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
