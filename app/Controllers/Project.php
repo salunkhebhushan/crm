@@ -5,6 +5,7 @@ use App\Models\ProjectModel;
 use App\Models\SubcontractorModel;
 use App\Models\Project_atvModel;
 use App\Models\AttendanceModel;
+use App\Models\Daily_Activity_Modal;
 class Project extends BaseController
 {
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger){
@@ -180,7 +181,8 @@ class Project extends BaseController
 	 public function pro_profile($id)
     {
 
-                $pro=new ProjectModel();   		
+                $pro=new ProjectModel();   
+                $getActivityData=new Project_atvModel();   		
         $pro_id=$pro->where('pro_id',$id);
         //$emp_id=$emp->where('emp_id',$id);
         $data['pro_profile']=$pro->find($pro_id);
@@ -205,12 +207,8 @@ class Project extends BaseController
         $data['attendProjectList'] =  $projectAttendance->where('att_date',date('Y/m/d'))->find();
        if(!empty($data['attendProjectList']))
        {
-            $attendProjectID = $data['attendProjectList'][0]['att_project_code'];
-      
+        $attendProjectID = $data['attendProjectList'][0]['att_project_code'];
         $attendProjectempID = $data['attendProjectList'][0]['att_emp_id'];
-       
-       
-       
         $explode = explode(',',$attendProjectID);
         $explodeempID = explode(',',$attendProjectempID);
         $array = array_combine($explodeempID, $explode);
@@ -246,6 +244,9 @@ class Project extends BaseController
              unset($_SESSION['emp_no']);
             }
          }
+            //Fetch Activity Code here
+            $data['listActivity']=$getActivityData->where('project_id',$project_no)->get()->getResult();
+            
        }else
        {
             $data['noOfWorkerCount']  = "-";
@@ -329,11 +330,22 @@ class Project extends BaseController
 	// for desplay activity report
 	public function atv_form($pro_code)
 	{		
-          $atv=new Project_atvModel();      
-          $data['getActivity']=$atv->table("project_activities")->orderBy('pro_atv_id','desc')->findall();
+          $atv=new Project_atvModel();  
+          $dailyActivityModal=new Daily_Activity_Modal();        
+          $data['getActivity']=$atv->table("project_activities")->where('project_id',$pro_code)->orderBy('pro_atv_id','desc')->findall();
+          $getDailyActivity = array();
+         //  print_r($data['getActivity'][1]['pro_atv_id']);exit;
+           foreach($data['getActivity'] as $indexval)
+           {  
+            
+           $getDailyActivity[] =$dailyActivityModal->table("daily_activities")->where('daily_activity_id',$indexval['pro_atv_id'])->orderBy('daily_act_id ','desc')->findall();
+           
+          }
+
+          $data['getDailyActivity'] = $getDailyActivity;
         
           $data['projectCode'] = $pro_code;
-         
+        
           $i=0;
          foreach($data['getActivity'] as $empno)
          {
@@ -346,8 +358,10 @@ class Project extends BaseController
              
           $getEmpName[] = $atv->activity_record($key);
          
-         } 
-           $list=array();
+         }
+     
+        
+          /* $list=array();
                 $list =  $getEmpName;
               
                 $i=0; 
@@ -358,14 +372,16 @@ class Project extends BaseController
                $ids[] = $key[0];
             }
                
-            } 
-         
-         $names = array_column($ids, 'first_name');
+            }*/
+
+           
+        // $names = array_column($ids, 'first_name');
           $activityName = array_column( $data['getActivity'], 'activity_name');
-         
-          $data['arrayUniqueName'] = array_unique($names);
+        //  $data['arrayUniqueName'] = array_unique($names);
           $data['activity_name'] = array_unique($activityName);
-        
+         
+        //  echo '<pre>';
+        //print_r($data['activity_name'] );exit;
        
 		 echo view('admin/project/activity_report',$data);
 		
@@ -573,6 +589,7 @@ class Project extends BaseController
     
     }
 
+  
 
 
 }

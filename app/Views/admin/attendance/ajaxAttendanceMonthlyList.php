@@ -54,7 +54,7 @@
                    <?php  $length = count($row);
                     for ($i = 0; $i < $length; $i++) { ?>
                                  <td>
-                                 <table >
+                                 <table>
                                  
                               <tr style="border-bottom:1pt;">
                               <?php if($hours[$i][$j-1]=='AB' || $hours[$i][$j-1]=='A.L' || $hours[$i][$j-1]=='S.L' || $hours[$i][$j-1]=='Fri'){?>
@@ -85,8 +85,6 @@
                               <td align ="center"><?=@$ot[$j-1]; ?></td>
                          
                                  </tr>
-                       
-                               
                             <?php $j++;  endforeach; ?>      
                                  </tbody>
                               </table>

@@ -47,7 +47,7 @@ class Project_atvModel extends Model{
 public function activity_record($id)
 {  
    foreach($id as $keyval)
-   {
+   { 
   $builder = $this->db->table("employees");
   $builder->select('first_name');
  // $builder->distinct();

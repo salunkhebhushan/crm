@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\AttendanceModel;
+use App\Models\RevenueModel;
 
 
 class Attendence extends BaseController
