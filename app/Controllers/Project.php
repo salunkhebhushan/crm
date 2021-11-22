@@ -334,15 +334,32 @@ class Project extends BaseController
           $dailyActivityModal=new Daily_Activity_Modal();        
           $data['getActivity']=$atv->table("project_activities")->where('project_id',$pro_code)->orderBy('pro_atv_id','desc')->findall();
           $getDailyActivity = array();
-         //  print_r($data['getActivity'][1]['pro_atv_id']);exit;
-           foreach($data['getActivity'] as $indexval)
+          $data['getDailyActivity']  =$dailyActivityModal->table("daily_activities")->where('daily_project_id',$pro_code)->orderBy('daily_act_id ','desc')->findall();
+           $data['count'] = count($data['getDailyActivity']);
+          
+          
+          foreach($data['getDailyActivity'] as $date)
+        
+            {
+                $dateArray[] = $date['daily_activity_date'];
+                
+            }
+            
+            $arrayUniqDate  = $dateArray;
+            $data['getDailyActivityDate'] = array_unique( $arrayUniqDate);
+           
+
+          //  print_r($data['getActivity'][1]['pro_atv_id']);exit;
+          /* foreach($data['getActivity'] as $indexval)
            {  
             
            $getDailyActivity[] =$dailyActivityModal->table("daily_activities")->where('daily_activity_id',$indexval['pro_atv_id'])->orderBy('daily_act_id ','desc')->findall();
            
-          }
+          }*/
+         
+        //  print_r( $data['getDailyActivity']);exit;
 
-          $data['getDailyActivity'] = $getDailyActivity;
+        
         
           $data['projectCode'] = $pro_code;
         

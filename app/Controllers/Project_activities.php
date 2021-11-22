@@ -105,7 +105,8 @@ public function ajaxAddDailyActivity()
 {           
    
     if(isset($_SESSION['admin']) && $_SESSION['admin'] !=NULL)
-    {           $dailyActivity = new Daily_Activity_Modal();
+    {      
+           $dailyActivity = new Daily_Activity_Modal();
            $data = array("daily_activity_date"=>$this->request->getPost('date'),
                          "daily_activity_name"=>$this->request->getPost('activity_name'),
                          "daily_activity_id"=>$this->request->getPost('act_id'),

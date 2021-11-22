@@ -34,34 +34,37 @@
                      <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                         <thead>
                            <tr class="info">
-                              <th>Project No</th>
+                              <th>Project No </th>
+                              <th>Employee Id</th>
                               <th>Activity</th>
-                              <?php foreach ($getDailyActivityDate as $getDailyActivityData) : ?>
-                                 <th><?= @date('M:d',strtotime(($getDailyActivityData))); ?></th>
+                              <?php foreach ($getDailyActivity as $getDailyActivityData) :  ?>
+                                 <th><?= @date('M:d', strtotime($getDailyActivityData[0]['daily_activity_date'])); ?></th>
                               <?php endforeach; ?>
                            </tr>
                         </thead>
                         <tbody>
-                           <?php  $j=0;
-                           foreach($getDailyActivity as $getActivityData) : ?>
+                           <?php $j = 0;
+                           foreach ($getActivity as $getActivityData) : ?>
                               <tr>
-                                 <td><?= 'WA000' . $projectCode ?></td>
-                                 <td><?= @$getActivityData['daily_activity_name'] ?></td>
-                                 
-                                 <td>
+                                 <td><?= 'W000' . $projectCode ?></td>
+                                 <td><?= 'WA00' . $getActivityData['act_emp_no'] ?></td>
+                                 <td><?= @$getActivityData['activity_name'] ?></td>
+                                 <?php   $length = count($getDailyActivity);  for ($i = 0; $i < $length; $i++) {
+                                    
+                                   if($getActivityData['pro_atv_id'] == $getDailyActivity[$j][0]['daily_activity_id']){ 
+                                    //echo '<pre>'; print_r($getDailyActivity[$j][0]['daily_activity_name']);
+                                   // $input = array_map("unserialize", array_unique(array_map("serialize", $getDailyActivity[$j][0]['daily_activity_name'])));
+                                 //   echo '<pre>';print_r($input);
+                                  ?>
+                                    <td>
                                     <table>
-                                       <tr>
-                                       <?php for ($i = 0; $i <$count; $i++) { 
-                                      if($getActivityData['daily_activity_id'] == 92){    ?>
-                                          <td><?=@$getActivityData['daily_activity_meter'];?></td>
-                                          <?php }?>
-                                       </tr>
+                                       <tr><th><td><?=@$getDailyActivity[$j][0]['daily_activity_meter'];?></td><th></tr>
                                     </table>
                                  </td>
-                                 <?php   }?>
+                                 <?php }}?>
                               </tr>
-                           <?php $j++; 
-                           endforeach;   ?>
+                           <?php $j++;
+                           endforeach; ?>
                         </tbody>
                      </table>
                   </div>
